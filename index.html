@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Saad Imran</title>
+<meta name="description" content="I build RAG systems that answer only from your documents — and say &quot;no match&quot; instead of guessing.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1F3864;
+    --ink:#14181F;
+    --paper:#FAFAF8;
+    --accent:#2F6F4E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px;
+    line-height:1.6;
+    background-image:radial-gradient(rgba(31,56,100,.07) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+  .card{max-width:640px;text-align:left;}
+  .mark{
+    width:66px;height:66px;border-radius:15px;background:var(--navy);color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:31px;letter-spacing:2px;
+    position:relative;margin-bottom:26px;
+  }
+  .mark::after{
+    content:"";position:absolute;bottom:13px;left:18px;right:18px;
+    height:3px;border-radius:2px;background:var(--accent);
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(28px,6vw,42px);color:var(--navy);
+    letter-spacing:-.6px;line-height:1.15;margin-bottom:14px;
+  }
+  .claim{font-size:clamp(16px,3.4vw,19px);color:var(--ink);max-width:34ch;margin-bottom:22px;}
+  .claim strong{color:var(--accent);font-weight:500;}
+  .meta{font-size:14px;color:#5b6470;margin-bottom:30px;}
+  .rule{height:2px;width:56px;background:var(--accent);border-radius:2px;margin-bottom:22px;}
+  .soon{
+    display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:12px;
+    letter-spacing:1.6px;text-transform:uppercase;color:var(--navy);
+    border:1px solid rgba(31,56,100,.25);border-radius:999px;padding:7px 14px;
+  }
+  footer{margin-top:34px;font-size:13px;color:#8a919b;}
+  a{color:var(--navy);}
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="mark">SI</div>
+    <h1>Muhammad Saad Imran</h1>
+    <p class="claim">AI that answers only from your documents — and says <strong>&ldquo;no match&rdquo;</strong> instead of guessing.</p>
+    <div class="rule"></div>
+    <p class="meta">Software Engineering student at CUST, Islamabad &middot; building grounded retrieval systems.</p>
+    <span class="soon">Portfolio in progress</span>
+    <footer>Live &middot; more coming soon.</footer>
+  </main>
+</body>
+</html>
