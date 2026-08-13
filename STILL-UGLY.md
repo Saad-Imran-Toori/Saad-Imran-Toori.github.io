@@ -41,9 +41,21 @@
 
 16. **The Proof page is long.** Two cases at full three-beat length is a lot to ask of a first-time
     visitor. It probably needs a summary at the top with the detail collapsed underneath.
-17. **The claim is untested on anyone in my target field.** "Says no match instead of guessing" is a
-    sentence I like. Whether a founder at a document-heavy company reads it and understands what I
-    sell is unknown.
+17. ~~**The claim is untested on anyone in my target field.**~~ **Tested — it passed.** Mansoor
+    described my work back without using my words and reached the refusal behaviour on his own:
+    *"you care about making AI reliable rather than just making it answer everything."*
+
+## Added after the first real reader (Mansoor, DecisAI teammate)
+
+18. **The site is silent about anything other than RAG.** His words: *"it may actually be too
+    narrow… if you can also do broader ML, AI engineering, backend work, I wouldn't really know
+    that from the site."* He is reading it as a recruiter would. I built it for the buyer I named
+    in Week 1, and for that reader narrow is the point — but the site currently serves one audience
+    and says nothing to the other, and I hadn't consciously decided that. Now I have. It is a
+    choice with a cost, not an oversight.
+19. **Two cases is thin and it shows.** *"After the two case studies I felt like I'd already seen
+    most of what the portfolio had to offer."* No defence — two is what I have. A third arrives in
+    Week 8 when the FlyRank capstone ships.
 
 ## The honest summary
 
