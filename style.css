@@ -99,3 +99,12 @@ ul{ margin:0 0 16px 20px; }
 li{ margin-bottom:7px; }
 
 footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; font-size:14px; color:var(--muted); }
+
+/* Footer link row — LinkedIn, GitHub, CV, WhatsApp, Email.
+   Deliberately quiet: small, muted, and below the fold, so it never competes
+   with the single call to action ("email me to set up a call") above it.
+   flex-wrap lets it fold onto two lines on a phone instead of overflowing. */
+.flinks{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:12px; }
+.flinks a{ color:var(--muted); text-decoration:none; font-size:14px; }
+.flinks a:hover{ color:var(--navy); text-decoration:underline; }
+.fnote{ margin:0; font-size:13px; color:#8a919b; }
