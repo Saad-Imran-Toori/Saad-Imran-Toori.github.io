@@ -131,14 +131,29 @@
   baseline, and the data said otherwise, so that section was rewritten to report the real numbers
   instead. I wanted the submission to be correct rather than tidy.</p>
 
-  <p>The rule became a frozen baseline rather than the product. A model trained on it &mdash; validated
-  with a client-level holdout so it is never tested on a client it has seen &mdash; now beats that rule
-  in every fold. About half of that gain comes from click history, which I report alongside the
-  headline rather than under it.</p>
+  <p>The rule became a frozen baseline rather than the product. A model trained on it &mdash; tested
+  only on clients it had never seen &mdash; beats that rule in every fold. About half of that gain
+  comes from click history, measured once, and I report that alongside the headline rather than
+  under it.</p>
+
+  <p>Later I went back and audited that sentence, and I am glad I did. I had been calling the
+  client-level holdout a strength without ever measuring what it was worth. So I built the
+  deliberately wrong version &mdash; the same model, the same rows, but clients allowed on both sides
+  of the split &mdash; and compared them. The score dropped about five points, which made a good story.
+  It was the wrong story: most of that drop was the target moving, not skill lost, and measured
+  against its own baseline the honest version is very slightly ahead. My first answer had been wrong
+  in my own favour.</p>
+
+  <figure>
+    <img src="ml09-split.png" alt="Notebook output comparing a random split and a client-grouped split, showing the raw gap of 0.052 and the base-rate-adjusted gap of 0.022.">
+    <figcaption>The correction, from the audit notebook. The raw gap is 0.052; once the base rate is
+    accounted for it is 0.022. The first number was the one I nearly published.</figcaption>
+  </figure>
 
   <p><strong>What I would do differently:</strong> test the assumption before writing the explanation
   of it. I wrote the reasoning for the tier rule first and checked it second, which is why the section
-  needed rewriting.</p>
+  needed rewriting. And measure a safeguard before calling it one &mdash; that is the mistake the audit
+  caught, and it was mine.</p>
 
   <h2>Work with me</h2>
   <p>If your team is buried in documents and you need an assistant you can put in front of a client,
