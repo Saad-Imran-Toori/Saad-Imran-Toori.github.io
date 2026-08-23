@@ -145,5 +145,11 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
   max-width:520px; margin-top:18px; padding:11px 14px;
   border-radius:10px; font-size:15px;
 }
-.formstatus.ok{    background:#eef5f1; border:1px solid var(--accent); color:#24583e; }
-.formstatus.error{ background:#fbeeee; border:1px solid #b23b3b;      color:#8f2f2f; }
+/* Success replaces the whole form, so it is allowed to be bigger and calmer -
+   it is the only thing left in that space. */
+.formstatus.ok{
+  background:#eef5f1; border:1px solid var(--accent); color:#24583e;
+  padding:20px 22px; font-size:17px; margin-top:10px;
+}
+/* Failure sits under a form that is still on screen, so it stays compact. */
+.formstatus.error{ background:#fbeeee; border:1px solid #b23b3b; color:#8f2f2f; }

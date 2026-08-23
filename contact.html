@@ -70,11 +70,13 @@
     <input type="hidden" name="_subject" value="New message from my portfolio">
 
     <button class="cta" type="submit">Send message</button>
-
-    <!-- role="status" and aria-live tell a screen reader to announce this the
-         moment it appears, without stealing focus from the page. -->
-    <p class="formstatus" id="formstatus" role="status" aria-live="polite" hidden></p>
   </form>
+
+  <!-- Deliberately OUTSIDE the form. On success the form is hidden and this
+       message takes its place, so it has to survive the form disappearing.
+       role="status" and aria-live tell a screen reader to announce it the
+       moment it appears, without stealing focus from the page. -->
+  <p class="formstatus" id="formstatus" role="status" aria-live="polite" hidden></p>
 
   <p class="muted">Prefer email? Write to <strong>saad.imran.xd@gmail.com</strong> or
   <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call&amp;body=Hi%20Saad%2C%0A%0AI%20read%20your%20site.%20I%27d%20like%20to%20set%20up%20a%20call%20about%3A%0A%0A">open a draft in Gmail</a>.
@@ -161,7 +163,10 @@
     })
     .then(function (response) {
       if (response.ok) {
-        form.reset();
+        // Hide the form so the confirmation takes its place and is the main
+        // thing on screen. It stays until the visitor leaves the page - there
+        // is nothing to accidentally dismiss.
+        form.hidden = true;
         show('Thanks — your message reached me. I will be in touch, usually the same day.', false);
       } else {
         show('That did not send. Please write to saad.imran.xd@gmail.com instead.', true);
