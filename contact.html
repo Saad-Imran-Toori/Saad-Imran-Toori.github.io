@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact — Muhammad Saad Imran</title>
-<meta name="description" content="Email me to set up a call. Twenty minutes, no pitch — here is exactly what it covers.">
+<meta name="description" content="Send me a message to set up a call. Twenty minutes, no pitch — here is exactly what it covers.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
   <p class="kicker">Contact</p>
   <h1>Let&rsquo;s set up a call</h1>
   <p class="lead">If your team is buried in documents and you need an assistant you can put in front
-  of a client, email me.</p>
+  of a client, <strong>send me a message</strong>.</p>
 
   <div class="rule"></div>
 
@@ -42,7 +42,7 @@
        No JavaScript. `required` and type="email" are the browser's own
        validation, and _next redirects a successful sender to thanks.html.
        ====================================================================== -->
-  <form class="form" action="https://formspree.io/f/xoeaznvn" method="POST">
+  <form class="form" id="contactform" action="https://formspree.io/f/xoeaznvn" method="POST">
 
     <label for="name">Your name</label>
     <input id="name" name="name" type="text" required autocomplete="name"
@@ -63,11 +63,17 @@
     <p class="gotcha"><label>Leave this field empty
       <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
 
-    <!-- What the email I receive is titled, and where the sender lands after. -->
+    <!-- What the email I receive is titled. I originally also sent a _next field to
+         redirect to my own thanks page; Formspree's free plan does not honour it,
+         custom redirects being a paid feature, so the script below handles success
+         on the page instead. Removed rather than left in place looking decorative. -->
     <input type="hidden" name="_subject" value="New message from my portfolio">
-    <input type="hidden" name="_next" value="https://saad-imran-toori.github.io/thanks.html">
 
     <button class="cta" type="submit">Send message</button>
+
+    <!-- role="status" and aria-live tell a screen reader to announce this the
+         moment it appears, without stealing focus from the page. -->
+    <p class="formstatus" id="formstatus" role="status" aria-live="polite" hidden></p>
   </form>
 
   <p class="muted">Prefer email? Write to <strong>saad.imran.xd@gmail.com</strong> or
@@ -118,8 +124,67 @@
     <a href="https://wa.me/923216226320">WhatsApp &mdash; book a call</a>
     <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call">Email</a>
   </nav>
-  <p class="fnote">Built by hand in plain HTML and CSS, hosted on GitHub Pages.</p>
+  <p class="fnote">Built by hand in plain HTML and CSS, with a little JavaScript on the contact
+  form. Hosted on GitHub Pages.</p>
 </footer>
+
+<!-- ================== The only JavaScript on this site ==================
+     It sends the form in the background so the visitor never leaves the page.
+
+     The important property: if this script never runs — JavaScript switched
+     off, blocked, or a typo of mine — the form still works. The browser falls
+     back to a normal submission and Formspree confirms it on its own page. The
+     feature degrades; it does not break. That is why the form has a real
+     action and method rather than being wired entirely in script.
+     ==================================================================== -->
+<script>
+(function () {
+  var form   = document.getElementById('contactform');
+  var status = document.getElementById('formstatus');
+  if (!form || !status) return;
+
+  form.addEventListener('submit', function (event) {
+    // Let the browser show its own "please fill in this field" first.
+    if (!form.checkValidity()) return;
+    event.preventDefault();
+
+    var button = form.querySelector('button');
+    var label  = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    hide();
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function (response) {
+      if (response.ok) {
+        form.reset();
+        show('Thanks — your message reached me. I will be in touch, usually the same day.', false);
+      } else {
+        show('That did not send. Please write to saad.imran.xd@gmail.com instead.', true);
+      }
+    })
+    .catch(function () {
+      // Fires when the request never reaches Formspree at all - offline, or blocked.
+      show('That did not send — you may be offline. Try again, or write to saad.imran.xd@gmail.com.', true);
+    })
+    .then(function () {
+      button.disabled = false;
+      button.textContent = label;
+    });
+  });
+
+  function show(text, isError) {
+    status.textContent = text;
+    status.className   = isError ? 'formstatus error' : 'formstatus ok';
+    status.hidden      = false;
+  }
+  function hide() { status.hidden = true; }
+})();
+</script>
 
 </body>
 </html>

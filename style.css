@@ -137,3 +137,13 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
    fill in every field they find, so anything arriving with this filled is spam
    and Formspree drops it. A spam guard that costs no captcha and no script. */
 .gotcha{ position:absolute; left:-9999px; }
+
+/* The one message the visitor sees after pressing Send. Green when it worked,
+   red when it did not — and the failure text always names my email address, so
+   a broken form is never a dead end. */
+.formstatus{
+  max-width:520px; margin-top:18px; padding:11px 14px;
+  border-radius:10px; font-size:15px;
+}
+.formstatus.ok{    background:#eef5f1; border:1px solid var(--accent); color:#24583e; }
+.formstatus.error{ background:#fbeeee; border:1px solid #b23b3b;      color:#8f2f2f; }
