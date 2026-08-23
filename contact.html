@@ -33,15 +33,46 @@
 
   <div class="rule"></div>
 
-  <!-- The one action. The mailto is pre-filled so the visitor doesn't have to compose anything. -->
-  <a class="cta" href="mailto:saad.imran.xd@gmail.com?subject=Setting%20up%20a%20call&amp;body=Hi%20Saad%2C%0A%0AI%20read%20your%20site.%20I%27d%20like%20to%20set%20up%20a%20call%20about%3A%0A%0A">Email me to set up a call</a>
-  <!-- mailto: depends on the visitor having a mail app registered with their browser.
-       Webmail users often get nothing at all when they click it, so the Gmail compose link
-       and the plain address are both offered here rather than left as a dead end. -->
-  <p class="muted">The button opens your mail app with the subject and opening line already written.
-  If nothing happens, your browser probably has no mail app set &mdash; use
-  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call&amp;body=Hi%20Saad%2C%0A%0AI%20read%20your%20site.%20I%27d%20like%20to%20set%20up%20a%20call%20about%3A%0A%0A">open in Gmail</a>
-  instead. Either way, my address is <strong>saad.imran.xd@gmail.com</strong> and WhatsApp is below.</p>
+  <!-- ============================ THE ONE ACTION ============================
+       This form replaced a mailto: link. The mailto worked for me and silently
+       did nothing for anyone browsing without a mail app registered — I found
+       that out by having someone try it. A form has no such dependency: it
+       posts to Formspree, which emails the message to me.
+
+       No JavaScript. `required` and type="email" are the browser's own
+       validation, and _next redirects a successful sender to thanks.html.
+       ====================================================================== -->
+  <form class="form" action="https://formspree.io/f/xoeaznvn" method="POST">
+
+    <label for="name">Your name</label>
+    <input id="name" name="name" type="text" required autocomplete="name"
+           placeholder="Your name">
+
+    <label for="email">Your email</label>
+    <input id="email" name="email" type="email" required autocomplete="email"
+           placeholder="you@company.com">
+    <p class="hint">I reply to this address. It is not added to any list.</p>
+
+    <label for="message">What are you working with?</label>
+    <textarea id="message" name="message" required
+              placeholder="One or two sentences about the documents and the problem."></textarea>
+
+    <!-- Honeypot. Moved off-screen by CSS so people never see it; bots fill in
+         every field they find, and Formspree discards anything that arrives
+         with this one filled. No captcha for the visitor to solve. -->
+    <p class="gotcha"><label>Leave this field empty
+      <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+    <!-- What the email I receive is titled, and where the sender lands after. -->
+    <input type="hidden" name="_subject" value="New message from my portfolio">
+    <input type="hidden" name="_next" value="https://saad-imran-toori.github.io/thanks.html">
+
+    <button class="cta" type="submit">Send message</button>
+  </form>
+
+  <p class="muted">Prefer email? Write to <strong>saad.imran.xd@gmail.com</strong> or
+  <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call&amp;body=Hi%20Saad%2C%0A%0AI%20read%20your%20site.%20I%27d%20like%20to%20set%20up%20a%20call%20about%3A%0A%0A">open a draft in Gmail</a>.
+  WhatsApp is below.</p>
 
   <!-- The Week-1 pressure-test said Contact was a dead end. This section is the fix:
        say exactly what the call is, so replying costs nothing. -->
@@ -64,8 +95,8 @@
   <h2>Booking the call</h2>
   <p>There is no calendar link here on purpose. I would rather agree a time with you directly than
   send you to a booking page I do not check. <b>Message me on WhatsApp at
-  <a href="https://wa.me/923216226320">wa.me/923216226320</a></b> or email me, and I will come back
-  with times the same day. Same twenty minutes, same questions as above.</p>
+  <a href="https://wa.me/923216226320">wa.me/923216226320</a></b> or use the form above, and I will
+  come back with times the same day. Same twenty minutes, same questions as above.</p>
 
   <h2>Elsewhere</h2>
   <ul>

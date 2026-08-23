@@ -108,3 +108,32 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
 .flinks a{ color:var(--muted); text-decoration:none; font-size:14px; }
 .flinks a:hover{ color:var(--navy); text-decoration:underline; }
 .fnote{ margin:0; font-size:13px; color:#8a919b; }
+
+/* ---------- The contact form ----------
+   The one dynamic thing on this site. It posts to Formspree, which emails me
+   the message. There is no JavaScript anywhere in it: `required` and
+   type="email" are the browser's own validation, and a successful send is an
+   ordinary form POST that lands the sender on thanks.html. */
+.form{ max-width:520px; margin:10px 0 6px; }
+.form label{ display:block; font-size:14px; color:var(--muted); margin:18px 0 6px; }
+.form input, .form textarea{
+  width:100%; font:inherit; color:var(--ink); background:#fff;
+  border:1px solid var(--line); border-radius:10px; padding:11px 13px;
+}
+.form textarea{ resize:vertical; min-height:120px; }
+/* Focus ring in the one accent colour, so keyboard users can see where they are. */
+.form input:focus, .form textarea:focus{
+  outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(47,111,78,.15);
+}
+/* Turns the border red once someone has typed something that is not a valid
+   address. Deliberately NOT applied to an untouched empty field — nobody wants
+   to be told off before they have typed anything. The browser handles the
+   genuinely empty case by refusing to submit and saying so. */
+.form input:invalid:not(:placeholder-shown),
+.form textarea:invalid:not(:placeholder-shown){ border-color:#b23b3b; }
+.form .hint{ font-size:13px; color:var(--muted); margin:7px 0 0; }
+.form button{ border:none; cursor:pointer; margin-top:22px; }
+/* The honeypot: a real field, moved off-screen so people never see it. Bots
+   fill in every field they find, so anything arriving with this filled is spam
+   and Formspree drops it. A spam guard that costs no captcha and no script. */
+.gotcha{ position:absolute; left:-9999px; }
