@@ -39,8 +39,11 @@
        that out by having someone try it. A form has no such dependency: it
        posts to Formspree, which emails the message to me.
 
-       No JavaScript. `required` and type="email" are the browser's own
-       validation, and _next redirects a successful sender to thanks.html.
+       `required` and type="email" are the browser's own validation and need no
+       script. The JavaScript at the foot of this page only handles what happens
+       AFTER a valid message is sent - it keeps the visitor on this page and
+       shows the confirmation dialog. If that script never runs, the form still
+       submits normally.
        ====================================================================== -->
   <form class="form" id="contactform" action="https://formspree.io/f/xoeaznvn" method="POST">
 
@@ -72,8 +75,10 @@
     <button class="cta" type="submit">Send message</button>
   </form>
 
-  <!-- Deliberately OUTSIDE the form. On success the form is hidden and this
-       message takes its place, so it has to survive the form disappearing.
+  <!-- The quiet confirmation, which stays on the page after the dialog is
+       dismissed. Without it, one stray click would erase the only evidence the
+       message went. It also carries the failure text, which always names my
+       email address so a broken form is never a dead end.
        role="status" and aria-live tell a screen reader to announce it the
        moment it appears, without stealing focus from the page. -->
   <p class="formstatus" id="formstatus" role="status" aria-live="polite" hidden></p>
