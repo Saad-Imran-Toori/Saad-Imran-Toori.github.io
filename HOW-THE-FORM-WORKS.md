@@ -1,7 +1,7 @@
 # How the contact form works
 
-*Plain words, for anyone who has never built a site. Written for ML-10 "Make It Do Something",
-FlyRank AI internship, Week 6.*
+*Plain words, for anyone who has never built a site. Written for "Make It Do Something",
+General AI Fluency track, FlyRank AI internship, Week 6.*
 
 ---
 
