@@ -145,11 +145,33 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
   max-width:520px; margin-top:18px; padding:11px 14px;
   border-radius:10px; font-size:15px;
 }
-/* Success replaces the whole form, so it is allowed to be bigger and calmer -
-   it is the only thing left in that space. */
-.formstatus.ok{
-  background:#eef5f1; border:1px solid var(--accent); color:#24583e;
-  padding:20px 22px; font-size:17px; margin-top:10px;
+/* Both states sit under a form that is still on screen, so both stay compact.
+   The success line is the quiet record that survives the dialog being dismissed. */
+.formstatus.ok{    background:#eef5f1; border:1px solid var(--accent); color:#24583e; }
+.formstatus.error{ background:#fbeeee; border:1px solid #b23b3b;      color:#8f2f2f; }
+
+/* ---------- The success dialog ----------
+   Shown only after Formspree confirms the message, and dismissed by a click
+   anywhere or by Escape. */
+.modal{
+  position:fixed; inset:0; z-index:50; padding:24px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(20,24,31,.55);
 }
-/* Failure sits under a form that is still on screen, so it stays compact. */
-.formstatus.error{ background:#fbeeee; border:1px solid #b23b3b; color:#8f2f2f; }
+/* display:flex above beats the browser's built-in [hidden]{display:none}, so
+   the hidden state has to be restated here or the dialog would never hide. */
+.modal[hidden]{ display:none; }
+.modal:focus{ outline:none; }
+.modal-card{
+  width:100%; max-width:440px; background:var(--paper);
+  border:1px solid var(--line); border-radius:14px; padding:30px 32px;
+  box-shadow:0 18px 50px rgba(20,24,31,.28);
+}
+.modal-card h2{ margin:4px 0 12px; }
+.modal-card p{ margin-bottom:0; }
+.modal-hint{
+  margin-top:20px; padding-top:14px; border-top:1px solid var(--line);
+  font-size:13px; color:var(--muted);
+}
+/* Stops the page scrolling behind the dialog while it is open. */
+body.locked{ overflow:hidden; }

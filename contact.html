@@ -130,6 +130,21 @@
   form. Hosted on GitHub Pages.</p>
 </footer>
 
+<!-- The success dialog. Sits in the page from the start but stays hidden until a
+     message has actually been sent, so there is nothing to build on the fly.
+     tabindex="-1" lets the script move focus here without adding it to the tab
+     order; aria-modal tells a screen reader the rest of the page is inert. -->
+<div class="modal" id="sentmodal" role="dialog" aria-modal="true"
+     aria-labelledby="senttitle" tabindex="-1" hidden>
+  <div class="modal-card">
+    <p class="kicker">Sent</p>
+    <h2 id="senttitle">Thanks &mdash; it reached me.</h2>
+    <p>Your message is in my inbox. I&rsquo;ll come back to you with times for a call,
+    usually the same day.</p>
+    <p class="modal-hint">Click anywhere to go back</p>
+  </div>
+</div>
+
 <!-- ================== The only JavaScript on this site ==================
      It sends the form in the background so the visitor never leaves the page.
 
@@ -143,7 +158,8 @@
 (function () {
   var form   = document.getElementById('contactform');
   var status = document.getElementById('formstatus');
-  if (!form || !status) return;
+  var modal  = document.getElementById('sentmodal');
+  if (!form || !status || !modal) return;
 
   form.addEventListener('submit', function (event) {
     // Let the browser show its own "please fill in this field" first.
@@ -163,10 +179,10 @@
     })
     .then(function (response) {
       if (response.ok) {
-        // Hide the form so the confirmation takes its place and is the main
-        // thing on screen. It stays until the visitor leaves the page - there
-        // is nothing to accidentally dismiss.
-        form.hidden = true;
+        form.reset();          // clear the fields so a stale draft is not left sitting there
+        openModal();           // the loud confirmation, dismissed by a click or Escape
+        // The quiet one, which stays after the dialog is dismissed. Without it,
+        // one stray click would erase the only proof the message went.
         show('Thanks — your message reached me. I will be in touch, usually the same day.', false);
       } else {
         show('That did not send. Please write to saad.imran.xd@gmail.com instead.', true);
@@ -188,6 +204,31 @@
     status.hidden      = false;
   }
   function hide() { status.hidden = true; }
+
+  /* ---- The success dialog ----
+     Opened only after Formspree has confirmed the message. Dismissed by a click
+     anywhere or by Escape. Focus moves into it when it opens and returns to the
+     Send button when it closes, so a keyboard user is never stranded behind it. */
+  var lastFocused = null;
+
+  function openModal() {
+    lastFocused = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add('locked');   // stop the page scrolling underneath
+    modal.focus();
+    modal.addEventListener('click', closeModal);
+    document.addEventListener('keydown', onKey);
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    document.body.classList.remove('locked');
+    modal.removeEventListener('click', closeModal);
+    document.removeEventListener('keydown', onKey);
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  function onKey(e) { if (e.key === 'Escape') closeModal(); }
 })();
 </script>
 
