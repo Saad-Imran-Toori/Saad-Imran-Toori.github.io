@@ -34,7 +34,13 @@ h1,h2,h3,.mono{ font-family:'Space Grotesk','Inter',sans-serif; }
 
 /* ---------- Navigation (same markup on all three pages) ---------- */
 header{ border-bottom:1px solid var(--line); background:rgba(250,250,248,.9); }
-nav{ display:flex; align-items:center; gap:22px; padding:16px 24px; max-width:820px; margin:0 auto; }
+/* flex-wrap lets the nav fold onto a second line on a narrow phone instead of
+   pushing 'Email' off the right edge. Same fix, same reason, as .flinks below. */
+/* SCOPED to the top bar. A bare nav{} also matched <nav class="toc"> and
+   <nav class="flinks">, which is why the paper's Contents heading sat BESIDE
+   its list, vertically centred, instead of above it. Found on a real phone. */
+header nav{ display:flex; flex-wrap:wrap; align-items:center; column-gap:22px; row-gap:2px;
+     padding:8px 24px; max-width:820px; margin:0 auto; }
 .mark{
   width:38px; height:38px; border-radius:9px; background:var(--navy); color:var(--paper);
   display:flex; align-items:center; justify-content:center;
@@ -46,10 +52,12 @@ nav{ display:flex; align-items:center; gap:22px; padding:16px 24px; max-width:82
   content:""; position:absolute; bottom:8px; left:10px; right:10px;
   height:2px; border-radius:2px; background:var(--accent);
 }
-nav a.link{ color:var(--muted); text-decoration:none; font-size:15px; }
-nav a.link:hover{ color:var(--navy); }
-nav a.link[aria-current="page"]{ color:var(--navy); font-weight:500; }
-nav .spacer{ margin-left:auto; }
+/* padding, not font-size: the link still LOOKS 15px but the tappable box is 45px tall,
+   clearing the 44px thumb target. nav's own vertical padding dropped 16->8 to compensate. */
+header nav a.link{ color:var(--muted); text-decoration:none; font-size:15px; padding:10px 0; }
+header nav a.link:hover{ color:var(--navy); }
+header nav a.link[aria-current="page"]{ color:var(--navy); font-weight:500; }
+header nav .spacer{ margin-left:auto; }
 
 /* ---------- Shared blocks ---------- */
 main{ padding:56px 0 40px; }
@@ -81,7 +89,11 @@ a{ color:var(--navy); }
 
 /* Screenshots of real work. */
 figure{ margin:22px 0; }
-figure img{ width:100%; border:1px solid var(--line); border-radius:10px; display:block; }
+/* height:auto is REQUIRED now that the <img> tags carry intrinsic width/height
+   attributes - without it the attribute height wins over the aspect ratio and
+   every figure stretches. The attributes are what stop the page jumping while
+   images load; height:auto is what keeps them undistorted. */
+figure img{ width:100%; height:auto; border:1px solid var(--line); border-radius:10px; display:block; }
 figcaption{ font-size:13px; color:var(--muted); margin-top:8px; font-style:italic; }
 
 /* The About block in the hero: photo beside two lines of text. */
@@ -104,10 +116,16 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
    Deliberately quiet: small, muted, and below the fold, so it never competes
    with the single call to action ("email me to set up a call") above it.
    flex-wrap lets it fold onto two lines on a phone instead of overflowing. */
-.flinks{ display:flex; flex-wrap:wrap; gap:18px; margin-bottom:12px; }
-.flinks a{ color:var(--muted); text-decoration:none; font-size:14px; }
+.flinks{ display:flex; flex-wrap:wrap; column-gap:18px; row-gap:0; margin-bottom:12px; }
+/* padding on BOTH axes: 'CV' is two characters wide (19px) and needs to clear the
+   24px minimum horizontally as well as vertically. */
+.flinks a{ color:var(--muted); text-decoration:none; font-size:14px; padding:10px 6px; }
+.flinks{ margin-left:-6px; }   /* cancel the new left padding so the row still lines up */
+/* A link alone in its own paragraph is an action, not prose - WCAG's inline-text
+   exemption does not cover it, so it gets a real 27px-tall target. */
+.more{ display:inline-block; padding:4px 0; }
 .flinks a:hover{ color:var(--navy); text-decoration:underline; }
-.fnote{ margin:0; font-size:13px; color:#8a919b; }
+.fnote{ margin:0; font-size:13px; color:#6b7280; }   /* was #8a919b - 3.04:1, failed WCAG AA */
 
 /* ---------- The contact form ----------
    The one dynamic thing on this site. It posts to Formspree, which emails me
@@ -175,3 +193,9 @@ footer{ border-top:1px solid var(--line); margin-top:50px; padding:22px 0 40px; 
 }
 /* Stops the page scrolling behind the dialog while it is open. */
 body.locked{ overflow:hidden; }
+
+/* A dense product screenshot is crisp but unreadable at 342px. Tapping it opens
+   the full-size file so a phone reader can pinch-zoom - found by opening the
+   site on a real phone, where the DecisAI captures were legible only as shapes. */
+figure a{ display:block; }
+figure a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
