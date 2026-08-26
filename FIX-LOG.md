@@ -5,8 +5,10 @@
 in headless Chromium at 320 / 390 / 414 / 768 px.
 
 The phone came first. Every number below was measured, not estimated — but the
-two findings that mattered most were spotted by eye on the phone before any
-tool caught them.
+findings that mattered most were spotted by eye on the phone, not by any tool:
+the Contents block laid out wrongly, the work captures being unreadable, and —
+on the check *after* deploying — a fix of mine that had quietly created a new
+problem.
 
 ---
 
@@ -53,7 +55,25 @@ cannot shrink further without crushing the numbers. Four other tables in the
 paper had the same exposure.
 
 **Fixed:** each of the 5 tables now sits in its own `overflow-x:auto` container.
-The table scrolls sideways inside its box; the page never does.
+The table scrolls sideways inside its box; the page never does. Two of the five
+actually need it — the 4-column Results table (402px) and the 5-column precision@K
+table (424px); the other three fit and never move.
+
+**Then the after-check found what that fix broke.** Re-opening the paper on the phone
+after deploying: scroll right to read `sd across folds = 0.113` and the Method column
+has scrolled out of view, so the number no longer has a row label. The overflow was
+gone and a "which row is this?" problem had taken its place.
+
+**Fixed again:** the first column is now `position:sticky; left:0`, so the row label
+pins to the left edge while the numbers slide underneath it. Verified by scrolling the
+Results table fully right — "Gradient boosting" stays visible beside 0.113.
+
+The catch worth recording: a sticky cell must have an **opaque** background matching
+its row stripe exactly, or the scrolling cells show through it. The stripe is
+`rgba(31,56,100,.025)` over `#FAFAF8`, so the pinned cells needed that flattened to a
+solid `#F4F5F4`. This makes the odd rows solid `#FAFAF8` too, which hides the page's
+dot-grid texture behind the tables. A real, if tiny, visual change — noted rather than
+skipped over.
 
 ### 4. A footer contrast failure
 
@@ -146,9 +166,11 @@ phone width tested, so lazy-loading it costs nothing.
 - "Email" now wraps to its own line in the nav on narrow phones. Correct and
   fully visible, but it reads as slightly orphaned. A hamburger menu would be
   tidier and would also be the first build step this site has ever needed.
-- The paper's tables scroll sideways rather than reflowing into stacked cards.
-  Scrolling is honest and costs nothing; stacking would read better and is the
-  obvious next improvement.
+- The paper's tables scroll sideways rather than reflowing into stacked cards. With
+  the row label pinned this reads fine, but stacking would still be better on a phone.
+- When a table is scrolled, the second column's numbers pass under the pinned first
+  column and are clipped mid-character at the boundary. That is how sticky columns
+  work; it looks slightly untidy for the width of one character.
 - Nothing here was tested on iOS Safari — only Android Chrome and headless
   Chromium. `-webkit-overflow-scrolling` is in place for it, untested.
 
@@ -156,8 +178,10 @@ phone width tested, so lazy-loading it costs nothing.
 
 ## Files changed
 
-`index.html`, `proof.html`, `contact.html`, `paper.html`, `style.css`
-— 79 insertions, 40 deletions.
+`index.html`, `proof.html`, `contact.html`, `paper.html`, `style.css`.
+
+Deployed in three commits: the fixes, a correction after the first upload carried
+pre-fix copies of four files, and the sticky column the after-check turned up.
 
 **Note for the internship repo:** `work/paper/paper.html` is an archived copy of
 the deployed paper. It was synced on 26 August; these changes put it behind
