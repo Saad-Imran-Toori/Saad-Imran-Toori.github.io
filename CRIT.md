@@ -1,4 +1,4 @@
-[CRIT.md](https://github.com/user-attachments/files/31653568/CRIT.md)
+[CRIT.md](https://github.com/user-attachments/files/31654111/CRIT.md)
 # Survive the Crit — design review of the live portfolio
 
 **Week 6 · General AI Fluency · Muhammad Saad Imran**
@@ -259,7 +259,8 @@ commit message is deliberate: three times this internship a commit looked right 
 file was not (a stale duplicate site copy being served, a figure committed as `ml09-split.png.png`,
 and a push of four pre-fix files).
 
-**Evidence:** _[phone screenshot filename]_
+**Evidence:** `phone-01-offer-paragraph.jpeg` — the live home page on an Android phone, showing the
+narrowed claim block and the new offer paragraph rendering correctly with no horizontal overflow.
 
 ### Fix 2 — must-fix 2 and 3: the offer moved up, and the next step is now stated
 
@@ -284,7 +285,9 @@ whether this approach fits." I left the number out deliberately. A response-time
 miss would be a small over-claim sitting on a page whose entire argument is that I do not over-claim.
 The promise as written is one I can keep every time.
 
-**Verified:** live on saad-imran-toori.github.io. _[Add phone screenshot.]_
+**Verified:** live on saad-imran-toori.github.io, and photographed on a real phone —
+`phone-01-offer-paragraph.jpeg` shows the paragraph and its "Send me a message" link sitting above
+the photo, where the reader meets it before the case studies.
 
 ### Fix 3 — must-fix 4: the jargon a founder reads first
 
@@ -305,7 +308,9 @@ The promise as written is one I can keep every time.
 honesty is kept: the sentence still says the two cases are different settings rather than pretending
 they are the same piece of work.
 
-**Verified:** live on saad-imran-toori.github.io. _[Add phone screenshot.]_
+**Verified:** live on saad-imran-toori.github.io, and photographed on a real phone —
+`phone-02-two-cases-rewrite.jpeg` shows the replacement paragraph in place of the retrieval-layer
+sentence.
 
 ### Must-fix 1 — addressed through the others, and not mine to close
 
@@ -314,7 +319,120 @@ finding; items 2 to 5 are the specific ways the page produced it. All four are n
 the umbrella is actually closed is not something I get to decide by looking at my own page, which is
 the whole premise of this assignment — so it goes back to Zia, and his answer is recorded below.
 
-_[Re-review response to be added.]_
+### The re-review, and why it does not count as evidence
+
+I asked Zia to look again once the fixes were live. His second pass reads as an improvement, but it
+quotes two sentences that no longer exist on the site:
+
+- "I work on the retrieval layer — the part that decides whether there is enough evidence to answer
+  at all…" — removed in fix 3.
+- "If your team is buried in documents and you need an assistant you can put in front of a client,
+  send me a message and we'll set up a call." — the pre-fix wording, replaced in fix 1.
+
+Both are gone from the live pages, and `phone-01-offer-paragraph.jpeg` and
+`phone-02-two-cases-rewrite.jpeg` — taken on my own phone at 09:30 — show what is actually there.
+So he was reading a cached copy. **I am not counting that pass as confirmation that the must-fixes
+landed**, because it describes the page before them. Recording it rather than quietly folding it in,
+for the same reason I check a commit against the built file rather than the commit message.
+
+One finding in it does survive, because it does not depend on any changed text:
+
+> "Is Saad actually offering to work with companies, or is this just a student portfolio? The page
+> introduces you as 'Software Engineering student…' and then 'Machine Learning intern at FlyRank
+> AI.' Those facts are honest and useful, but they can make a founder mentally categorize you as
+> 'student looking for an internship' rather than 'person who can help me solve a document-AI
+> problem.'"
+
+Those two lines are unchanged and visible in `phone-02-two-cases-rewrite.jpeg`. This is the same
+thing his very first answer hinted at, when the opening words of his ten-second reply were "software
+engineering student" — noted at the time in section 2, before there was enough to call it a finding.
+Two independent appearances is enough.
+
+**Partly mitigated already, and I am saying which part.** Fix 2 moved the offer above the photo, so a
+reader now meets "Buried in documents right now? Send me the problem itself" *before* the student
+line rather than after it — visible in `phone-01-offer-paragraph.jpeg`. The order of the page no
+longer buries the offer behind the credential. What is not addressed is the credential itself, and I
+am not going to hide it: I am a student and an intern, and removing that to read as more established
+would be exactly the kind of over-claim this whole crit made me take out of the page.
+
+### The clean re-review — must-fix 1 closed by the person who raised it
+
+Zia looked again from a fresh load. **This pass is of the current page**, and I checked that before
+accepting it: it quotes two strings that exist only after the fixes — *"Send me the problem itself —
+not a meeting request"* and *"I have proved that in a working system, on a 500-page tender. I have
+not yet run it against a company's live document set…"*. His "I work on retrieval systems" reference
+is the intro paragraph, which was never changed, not the removed retrieval-layer sentence.
+
+His words:
+
+> Honestly, this version is much stronger. The first thing I see is "AI that answers only from your
+> documents — and says 'no match' instead of guessing." That immediately tells me what you build and
+> what makes your approach different. I don't have to decode "AI engineer," "ML developer," or a
+> bunch of technologies first.
+>
+> And your next paragraph identifies the customer: "Companies that run on documents — contracts,
+> RFPs, policies…" That's excellent because you're not just describing yourself; you're describing
+> my problem if I'm the target visitor.
+
+On the offer and the next step:
+
+> This is where I think you've improved the most. Your new CTA is excellent: "Send me the problem
+> itself — not a meeting request." That's clever. As a founder, I don't have to commit to a sales
+> call just to find out whether you're useful. You're saying: "Show me your problem. I'll tell you
+> honestly if I can help." That's low-pressure and credible.
+
+On the narrowed claim — the item he had originally excused me from fixing:
+
+> There's one remaining hesitation: "Is this actually ready for my company's documents?" And here's
+> the interesting part: you answer that yourself. "I have proved that in a working system, on a
+> 500-page tender. I have not yet run it against a company's live document set…" I actually like
+> that sentence a lot. It could have been tempting to hide the limitation. Instead you're saying:
+> "Here's what I've proven. Here's what I haven't." That makes me trust you more, not less.
+>
+> The only downside is that some founders will read "I haven't yet run it against a company's live
+> document set" and decide you're too early. But that's a legitimate limitation. Don't hide it.
+
+**Must-fix 1 is closed.** The original finding was "I can tell what you build. I don't immediately
+know what you'd do for my company." On the fixed page he describes the second paragraph as
+*describing my problem* rather than describing me, and traces the route he would actually take —
+Home → DecisAI → Contact. That is the umbrella finding answered by the reader who raised it, which
+is the only way it could legitimately be closed.
+
+**What the fixes cost me, and what they did not.** He notes that naming the limitation will put some
+founders off. He is right, and it is worth writing down: the fix I was let off and made anyway is
+the one that both increased his trust *and* narrowed the audience. Those are not in tension — they
+are the same sentence doing its job.
+
+**The student framing did not reappear.** He raised it in his previous pass, when he was reading a
+cached page. On the current page, where fix 2 puts the offer above the photo and the credential
+line, he did not mention it at all. I am not treating that as proof it is gone — it is one reader
+not raising one thing — but the ordering change is the only relevant difference between the two
+passes.
+
+**What is still open, in his words:**
+
+> The one thing that still makes me pause is "I work on retrieval systems…" That's understandable to
+> a technical person, but a founder who isn't technical may not know what retrieval means. However,
+> you've done something smart: you explain the outcome immediately afterward […] So it's not a
+> serious problem anymore.
+
+> I understand why FlyRank is there, but as a founder I might wonder: "Is this guy a document-AI
+> specialist, or is he just generally interested in machine learning?" Your DecisAI positioning is
+> so strong that I'd make sure it remains clearly the hero project.
+
+The FlyRank point is now the **third** time he has raised it — Q5 in the first pass, again in the
+stale pass, and again here. One mention is an opinion; three unprompted is a pattern, and I am
+recording it as the first thing to fix next rather than letting it sit as a nice-to-have I quietly
+never return to. It stays out of must-fix because it is a structural decision about which case study
+leads, not a confusion or a break — but it is no longer optional in my head.
+
+And on the Paper, he resolved his own earlier criticism:
+
+> The Paper doesn't need to be interesting to everyone. It needs to be available when someone wants
+> to verify that you're technically serious.
+
+That is the answer I would have given if I had been allowed to defend it, and it is worth more
+coming from him.
 
 ---
 
@@ -421,8 +539,8 @@ rather than presenting the pass as stronger than it is.
       live, section 5
 - [x] I engaged with the feedback rather than defending the original — no explanation was offered
       during collection, and the one excuse I was handed was declined
-- [ ] Phone evidence — the site's real-phone testing is recorded in `FIX-LOG.md` (26 August, on an
-      Android phone in Chrome, re-measured at 320 / 390 / 414 / 768 px). _[Add a phone screenshot of
-      the new offer paragraph.]_
-- [ ] Re-review — Zia asked whether he can now tell what I would do for his company. _[Answer to be
-      added.]_
+- [x] Phone evidence — `phone-01-offer-paragraph.jpeg` and `phone-02-two-cases-rewrite.jpeg`, taken
+      on a real Android phone showing both fixes rendering correctly, plus the site's earlier
+      real-phone testing recorded in `FIX-LOG.md` (26 August, re-measured at 320 / 390 / 414 / 768 px)
+- [x] Re-review — the reader who raised the umbrella finding confirmed it is answered on the fixed
+      page, and that pass was verified to be of the current page rather than a cached one
