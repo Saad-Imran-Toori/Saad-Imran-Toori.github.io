@@ -5,11 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhammad Saad Imran — AI that answers only from your documents</title>
 <meta name="description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta name="author" content="Muhammad Saad Imran">
+<link rel="canonical" href="https://saad-imran-toori.github.io/">
+
+<!-- Social-share preview. Added in Week 7 (Break Your Own Site). Before this, pasting a
+     link to any page of this site into WhatsApp, LinkedIn or Slack produced a bare URL:
+     no title, no description, no image. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Muhammad Saad Imran">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://saad-imran-toori.github.io/">
+<meta property="og:title" content="Muhammad Saad Imran — AI that answers only from your documents">
+<meta property="og:description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta property="og:image" content="https://saad-imran-toori.github.io/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Muhammad Saad Imran — AI that answers only from your documents, and says “no match” instead of guessing.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Muhammad Saad Imran — AI that answers only from your documents">
+<meta name="twitter:description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta name="twitter:image" content="https://saad-imran-toori.github.io/og-image.png">
+<meta name="twitter:image:alt" content="Muhammad Saad Imran — AI that answers only from your documents, and says “no match” instead of guessing.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- Person schema. Tells a search engine that this page is about a person, which name,
+     and which profiles are the same person — so "Muhammad Saad Imran" as a query has
+     something structured to match against rather than only prose. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Muhammad Saad Imran",
+  "url": "https://saad-imran-toori.github.io/",
+  "image": "https://saad-imran-toori.github.io/profile.jpg",
+  "jobTitle": "Software Engineering student",
+  "description": "Builds retrieval systems that answer only from a company's own documents and say \u201cno match\u201d instead of guessing.",
+  "email": "mailto:saad.imran.xd@gmail.com",
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Capital University of Science and Technology, Islamabad"
+  },
+  "knowsAbout": ["Retrieval-augmented generation", "Document AI", "Machine learning validation"],
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "name": "Certificate of Completion — Machine Learning Internship",
+    "credentialCategory": "Certificate",
+    "identifier": "FR-D11-F1DDA-CDAA7",
+    "dateCreated": "2026-09-07",
+    "url": "https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad",
+    "recognizedBy": { "@type": "Organization", "name": "FlyRank AI" }
+  },
+  "sameAs": [
+    "https://github.com/Saad-Imran-Toori",
+    "https://linkedin.com/in/m-saad-imran"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -54,7 +110,7 @@
     <img src="profile.jpg" alt="Photograph of Muhammad Saad Imran" width="600" height="600" loading="lazy" decoding="async">
     <div>
       <p class="muted" style="margin-bottom:6px;">Software Engineering student at Capital University of Science
-      and Technology, Islamabad. Machine Learning intern at FlyRank AI.</p>
+      and Technology, Islamabad. Machine Learning engineering intern at FlyRank AI, July to August 2026.</p>
       <!-- Rewritten after the Week-6 crit (must-fix 4). This used to say "I work on the retrieval
            layer" and draw a distinction between retrieval and a ranking/validation problem. The
            reviewer stopped and re-read it: a founder does not know or care what a retrieval layer
@@ -77,16 +133,24 @@
   </div>
 
   <div class="case">
-    <p class="tag">FlyRank AI &middot; Machine Learning internship &middot; in progress</p>
+    <p class="tag">FlyRank AI &middot; Machine Learning internship &middot; Jul &ndash; Aug 2026</p>
     <h3 style="margin-top:0;">Prioritising 16,726 pages when an editor can review 50 a week</h3>
     <p>A 335-week backlog means the useful question is not &ldquo;is this page underperforming?&rdquo;
     &mdash; thousands are. It is &ldquo;which page should someone open first?&rdquo; I tested my own
     ranking rule before building on it, and it failed.</p>
+    <!-- Added 7 Sep 2026, the day the credential was issued. The verify link is FlyRank's own,
+         not mine — the whole point of putting it here is that a reader does not have to take my
+         word for the certificate any more than for the numbers. -->
+    <p class="muted">Completed August 2026; the capstone was reviewed and accepted and FlyRank issued a
+    <a href="flyrank-certificate-of-completion.pdf">Certificate of Completion</a>. Credential
+    FR-D11-F1DDA-CDAA7 &mdash;
+    <a href="https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad">verify it with
+    FlyRank</a>.</p>
     <p style="margin-bottom:0;"><a href="proof.html" class="more">Read the case &rarr;</a></p>
   </div>
 
-  <!-- Space for the capstone and future write-ups. Empty on purpose for now —
-       the paper is not finished, so the page says so rather than pretending. -->
+  <!-- This section was empty and honestly labelled as empty from Week 5 until the paper shipped
+       in Week 8. It now holds the finished paper, which is what the home page had promised. -->
   <h2>Writing &amp; capstone</h2>
   <p><strong><a href="paper.html">Which search pages should an editor open first?</a></strong> &mdash;
   my FlyRank research paper. An editor can review about fifty pages a week from a portfolio of
