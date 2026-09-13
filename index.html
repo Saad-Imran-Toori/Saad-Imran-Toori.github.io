@@ -1,200 +1,841 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Saad Imran — AI that answers only from your documents</title>
-<meta name="description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Muhammad Saad Imran — Software Engineer</title>
+<meta name="description" content="I build retrieval systems, ranking models and platforms that show their evidence — and say “no match” instead of guessing. Software Engineering student at CUST Islamabad, with a machine learning internship at FlyRank AI.">
 <meta name="author" content="Muhammad Saad Imran">
 <link rel="canonical" href="https://saad-imran-toori.github.io/">
+<meta name="theme-color" content="#06070A">
+<link rel="icon" href="favicon.png" type="image/png">
 
-<!-- Social-share preview. Added in Week 7 (Break Your Own Site). Before this, pasting a
-     link to any page of this site into WhatsApp, LinkedIn or Slack produced a bare URL:
-     no title, no description, no image. -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Muhammad Saad Imran">
-<meta property="og:locale" content="en_GB">
 <meta property="og:url" content="https://saad-imran-toori.github.io/">
-<meta property="og:title" content="AI that answers only from your documents">
-<meta property="og:description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta property="og:title" content="Muhammad Saad Imran — Software Engineer">
+<meta property="og:description" content="I build retrieval systems, ranking models and platforms that show their evidence — and say “no match” instead of guessing. Software Engineering student at CUST Islamabad, with a machine learning internship at FlyRank AI.">
 <meta property="og:image" content="https://saad-imran-toori.github.io/og-image.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Muhammad Saad Imran — AI that answers only from your documents, and says “no match” instead of guessing.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI that answers only from your documents">
-<meta name="twitter:description" content="I build retrieval systems that answer only from your own documents and say &quot;no match&quot; instead of guessing.">
+<meta name="twitter:title" content="Muhammad Saad Imran — Software Engineer">
+<meta name="twitter:description" content="I build retrieval systems, ranking models and platforms that show their evidence — and say “no match” instead of guessing. Software Engineering student at CUST Islamabad, with a machine learning internship at FlyRank AI.">
 <meta name="twitter:image" content="https://saad-imran-toori.github.io/og-image.png">
-<meta name="twitter:image:alt" content="Muhammad Saad Imran — AI that answers only from your documents, and says “no match” instead of guessing.">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 
-<!-- Person schema. Tells a search engine that this page is about a person, which name,
-     and which profiles are the same person — so "Muhammad Saad Imran" as a query has
-     something structured to match against rather than only prose. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Muhammad Saad Imran",
-  "url": "https://saad-imran-toori.github.io/",
-  "image": "https://saad-imran-toori.github.io/profile.jpg",
-  "jobTitle": "Software Engineering student",
-  "description": "Builds retrieval systems that answer only from a company's own documents and say \u201cno match\u201d instead of guessing.",
-  "email": "mailto:saad.imran.xd@gmail.com",
-  "alumniOf": {
-    "@type": "CollegeOrUniversity",
-    "name": "Capital University of Science and Technology, Islamabad"
-  },
-  "knowsAbout": ["Retrieval-augmented generation", "Document AI", "Machine learning validation"],
-  "hasCredential": {
-    "@type": "EducationalOccupationalCredential",
-    "name": "Certificate of Completion — Machine Learning Internship",
-    "credentialCategory": "Certificate",
-    "identifier": "FR-D11-F1DDA-CDAA7",
-    "dateCreated": "2026-09-07",
-    "url": "https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad",
-    "recognizedBy": { "@type": "Organization", "name": "FlyRank AI" }
-  },
-  "sameAs": [
-    "https://github.com/Saad-Imran-Toori",
-    "https://linkedin.com/in/m-saad-imran"
-  ]
+<link rel="preload" as="image" href="hero-poster.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --void:#06070A;
+  --deep:#0C1018;
+  --surface:#11151E;
+  --line:#1E2532;
+  --line-2:#2A3343;
+  --text:#E9EBF2;
+  --muted:#8E97AA;
+  --faint:#5D6678;
+  --edge:#7FA8FF;
+  --evidence:#46C88A;
+  --nomatch:#E2634A;
+  --display:"Space Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Inter",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-</script>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ---------- the scene ---------- */
+#scene{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #141A2C 0%, #090B12 45%, #06070A 100%);
+}
+#scene canvas{display:block;width:100%;height:100%}
+#veil{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(90% 60% at 50% 45%, rgba(6,7,10,0) 0%, rgba(6,7,10,.30) 68%, rgba(6,7,10,.68) 100%);
+}
+
+/* ---------- shell ---------- */
+.page{position:relative;z-index:2}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:22px}
+
+nav{
+  position:sticky;top:0;z-index:20;
+  backdrop-filter:blur(14px);
+  background:linear-gradient(to bottom, rgba(6,7,10,.82), rgba(6,7,10,.35));
+  border-bottom:1px solid var(--line);
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:13px}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.mark b{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.02em}
+.mark i{
+  display:block;width:22px;height:22px;border:1px solid var(--line-2);border-radius:5px;
+  position:relative;flex:none;
+}
+.mark i::after{
+  content:"";position:absolute;left:4px;right:4px;bottom:4px;height:2px;background:var(--evidence);border-radius:1px;
+}
+.mark span{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.navlinks{display:flex;gap:22px;align-items:center}
+.navlinks a{
+  font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;padding-block:4px;
+}
+.navlinks a:hover,.navlinks a:focus-visible{color:var(--text)}
+.navlinks a.cta{color:var(--void);background:var(--text);padding:7px 13px;border-radius:3px;font-weight:500}
+.navlinks a.cta:hover{background:var(--evidence)}
+@media (max-width:620px){ .navlinks a:not(.cta){display:none} .mark span{display:none} }
+
+a:focus-visible,button:focus-visible{outline:2px solid var(--edge);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{
+  padding-block:clamp(48px,8vw,86px) clamp(84px,10vw,116px);
+  min-height:calc(100svh - 54px);
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;
+}
+.herogrid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+  gap:clamp(28px,5vw,66px);
+  align-items:center;
+  width:100%;
+}
+@media (max-width:900px){
+  .hero{min-height:0;padding-block:44px 56px}
+  .herogrid{grid-template-columns:minmax(0,1fr);gap:34px}
+  .portrait{order:-1;justify-self:start}
+}
+.lede.small{font-size:14.6px;margin-top:14px;color:var(--faint);max-width:52ch}
+
+/* portrait */
+.portrait{
+  margin:0;display:flex;flex-direction:column;gap:12px;max-width:560px;width:100%;
+  justify-self:end;perspective:1100px;position:relative;
+  animation:hover-float 9s ease-in-out infinite alternate;
+}
+.portrait::before{
+  content:"";position:absolute;inset:-26% -22%;z-index:-1;pointer-events:none;
+  background:radial-gradient(50% 46% at 50% 44%, rgba(127,168,255,.5), rgba(70,200,138,.16) 46%, transparent 74%);
+  filter:blur(40px);
+  animation:breathe 7.5s ease-in-out infinite alternate;
+}
+.pframe{
+  position:relative;border:1px solid var(--line-2);border-radius:4px;overflow:hidden;
+  background:var(--deep);
+  transform-style:preserve-3d;
+  box-shadow:0 30px 70px -40px rgba(0,0,0,.95);
+}
+@keyframes hover-float{ from{transform:translateY(-6px)} to{transform:translateY(6px)} }
+@keyframes breathe{ from{opacity:.55;transform:scale(.94)} to{opacity:1;transform:scale(1.06)} }
+.pframe .hvid{
+  display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;
+  background:var(--deep);
+  filter:saturate(.94) contrast(1.05) brightness(.98);
+}
+.vtoggle{
+  position:absolute;right:10px;bottom:10px;z-index:3;
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(233,235,242,.28);
+  background:rgba(6,7,10,.55);backdrop-filter:blur(8px);
+  color:var(--text);font-family:var(--mono);font-size:9px;line-height:1;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background .18s,border-color .18s;
+}
+.vtoggle:hover{background:rgba(6,7,10,.85);border-color:var(--edge)}
+.pframe .sheen{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(200deg, rgba(127,168,255,.20) 0%, transparent 38%),
+    linear-gradient(to top, rgba(6,7,10,.72) 0%, rgba(6,7,10,.10) 34%, transparent 60%);
+  mix-blend-mode:screen;
+}
+.pframe .grain{
+  position:absolute;inset:0;pointer-events:none;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='120' height='120' filter='url(%23g)'/></svg>");
+  animation:grainshift 1.1s steps(3) infinite;
+}
+@keyframes grainshift{ 0%{transform:translate(0,0)} 33%{transform:translate(-2%,1%)} 66%{transform:translate(1%,-2%)} }
+.pframe .tick{position:absolute;width:11px;height:11px;pointer-events:none;opacity:.75}
+.pframe .tick.tl{top:8px;left:8px;border-top:1px solid var(--edge);border-left:1px solid var(--edge)}
+.pframe .tick.tr{top:8px;right:8px;border-top:1px solid var(--edge);border-right:1px solid var(--edge)}
+.pframe .tick.bl{bottom:8px;left:8px;border-bottom:1px solid var(--edge);border-left:1px solid var(--edge)}
+.pframe .tick.br{bottom:8px;right:8px;border-bottom:1px solid var(--edge);border-right:1px solid var(--edge)}
+.portrait figcaption{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--faint);
+}
+.portrait figcaption b{color:var(--muted);font-weight:400}
+
+/* scroll cue */
+.scrollcue{
+  position:absolute;left:50%;bottom:18px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+}
+.scrollcue i{display:block;width:1px;height:32px;background:linear-gradient(to bottom,var(--edge),transparent);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+@media (max-width:900px){.scrollcue{display:none}}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--edge);margin:0 0 22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.eyebrow s{display:block;width:26px;height:1px;background:var(--edge);text-decoration:none;opacity:.6}
+h1{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(33px,6.1vw,62px);
+  line-height:1.06;letter-spacing:-.03em;
+  margin:0;max-width:17ch;text-wrap:balance;
+}
+h1 b{font-weight:700}
+h1 em{
+  font-style:normal;color:var(--nomatch);position:relative;white-space:nowrap;
+}
+h1 em::after{
+  content:"";position:absolute;left:0;right:0;bottom:.08em;height:2px;
+  background:var(--nomatch);opacity:.45;
+}
+.lede{
+  margin:26px 0 0;font-size:clamp(15px,1.75vw,17.5px);color:var(--muted);
+  max-width:56ch;line-height:1.62;
+}
+.lede b{color:var(--text);font-weight:500}
+.herobtns{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;padding:12px 20px;border-radius:3px;border:1px solid var(--line-2);
+  color:var(--text);transition:border-color .18s, background .18s, color .18s;
+}
+.btn:hover{border-color:var(--edge)}
+.btn.solid{background:var(--text);color:var(--void);border-color:var(--text);font-weight:500}
+.btn.solid:hover{background:var(--evidence);border-color:var(--evidence)}
+
+/* status line under hero */
+.status{
+  display:flex;gap:10px 26px;flex-wrap:wrap;margin-top:46px;padding-top:18px;
+  border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.06em;
+}
+.status span{display:flex;align-items:center;gap:7px}
+.status u{
+  width:5px;height:5px;border-radius:50%;background:var(--evidence);display:block;text-decoration:none;flex:none;
+}
+
+/* ---------- section furniture ---------- */
+section{padding-block:clamp(52px,8vw,92px)}
+.sechead{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;flex-wrap:wrap}
+.sechead h2{
+  font-family:var(--display);font-weight:600;font-size:clamp(20px,2.7vw,27px);
+  letter-spacing:-.02em;margin:0;
+}
+.sechead p{margin:0;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase}
+.rule{height:1px;background:var(--line);flex:1;min-width:24px;align-self:center}
+
+/* ---------- through-line ---------- */
+.ethic{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line)}
+@media (max-width:800px){.ethic{grid-template-columns:minmax(0,1fr)}}
+.ethic article{
+  padding:22px 22px 24px;border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:10px;background:rgba(17,21,30,.55);backdrop-filter:blur(6px);
+}
+.ethic article:last-child{border-right:0}
+@media (max-width:800px){
+  .ethic article{border-right:0;border-bottom:1px solid var(--line)}
+  .ethic article:last-child{border-bottom:0}
+}
+.ethic h3{
+  font-family:var(--display);font-weight:600;font-size:16px;margin:0;letter-spacing:-.01em;
+}
+.ethic p{margin:0;font-size:13.8px;color:var(--muted);line-height:1.6}
+.ethic .flag{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--evidence);
+}
+.ethic article:nth-child(2) .flag{color:var(--edge)}
+.ethic article:nth-child(3) .flag{color:var(--nomatch)}
+
+/* ---------- case stations ---------- */
+.case{
+  border-top:1px solid var(--line);
+  padding-block:clamp(38px,5.5vw,60px);
+  display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);
+  gap:clamp(22px,4vw,54px);align-items:start;
+}
+@media (max-width:860px){.case{grid-template-columns:minmax(0,1fr);gap:24px}}
+.case-id{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);margin:0 0 12px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+}
+.case-id b{color:var(--edge);font-weight:400}
+.case h3{
+  font-family:var(--display);font-weight:600;font-size:clamp(22px,3.1vw,30px);
+  letter-spacing:-.025em;margin:0 0 14px;line-height:1.12;text-wrap:balance;
+}
+.case h3 a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .18s}
+.case h3 a:hover{border-bottom-color:var(--edge)}
+.case p{margin:0 0 13px;color:var(--muted);font-size:14.6px;line-height:1.65;max-width:60ch}
+.case p b{color:var(--text);font-weight:500}
+.case p:last-of-type{margin-bottom:0}
+.quote{
+  border-left:2px solid var(--evidence);padding:2px 0 2px 15px;margin:16px 0 0;
+  color:var(--text);font-size:14.4px;line-height:1.6;
+}
+.quote.warn{border-left-color:var(--nomatch)}
+.links{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
+.links a{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:3px;
+}
+.links a:hover{border-bottom-color:var(--edge);color:var(--edge)}
+
+.metrics{
+  border:1px solid var(--line);background:rgba(17,21,30,.6);backdrop-filter:blur(8px);
+  display:flex;flex-direction:column;
+}
+.metrics .m{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.metrics .m:last-child{border-bottom:0}
+.metrics .m b{
+  font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;flex:none;
+}
+.metrics .m span{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);text-align:right}
+.metrics .m.good b{color:var(--evidence)}
+.metrics .m.bad b{color:var(--nomatch)}
+.metrics .cap{
+  padding:11px 16px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--faint);line-height:1.6;
+}
+.stack{display:flex;flex-wrap:wrap;gap:6px;padding:14px 16px 15px;border-top:1px solid var(--line)}
+.stack span{font-family:var(--mono);font-size:10px;color:var(--muted);border:1px solid var(--line-2);padding:3px 7px;border-radius:2px}
+
+/* ---------- more work ---------- */
+.more{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.more a{
+  background:var(--deep);padding:17px 18px 19px;text-decoration:none;color:var(--text);
+  display:flex;flex-direction:column;gap:8px;transition:background .18s;min-height:132px;
+}
+.more a:hover{background:var(--surface)}
+.more .t{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.more h3{font-family:var(--display);font-weight:600;font-size:15.5px;margin:0;letter-spacing:-.01em}
+.more .st{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);flex:none}
+.more p{margin:0;font-size:13px;color:var(--muted);line-height:1.55}
+.more .tech{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.05em;margin-top:auto}
+
+/* ---------- proof ---------- */
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.proof div{background:rgba(12,16,24,.75);padding:18px;display:flex;flex-direction:column;gap:8px}
+.proof dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--evidence)}
+.proof dd{margin:0;font-size:13.6px;line-height:1.55;color:var(--muted)}
+.proof dd b{color:var(--text);font-weight:500;display:block;font-family:var(--display);font-size:15px;margin-bottom:3px}
+.proof dd a{color:var(--edge);text-decoration:none;border-bottom:1px solid rgba(127,168,255,.3)}
+.proof dd a:hover{border-bottom-color:var(--edge)}
+.proof code{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.03em}
+
+/* ---------- contact ---------- */
+.contact{border-top:1px solid var(--line-2);padding-block:clamp(56px,8vw,96px)}
+.contact h2{
+  font-family:var(--display);font-weight:400;font-size:clamp(26px,4.4vw,44px);
+  letter-spacing:-.028em;line-height:1.1;margin:0;max-width:19ch;text-wrap:balance;
+}
+.contact h2 b{font-weight:700}
+.contact p{color:var(--muted);font-size:15px;max-width:54ch;margin:18px 0 0;line-height:1.65}
+.contact .honest{
+  margin-top:20px;padding:14px 16px;border:1px dashed var(--line-2);
+  color:var(--muted);font-size:13.5px;line-height:1.6;max-width:60ch;
+}
+.contact .honest b{color:var(--nomatch);font-weight:500;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;display:block;margin-bottom:5px}
+.reach{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+
+footer{border-top:1px solid var(--line);padding-block:22px 34px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
 </head>
 <body>
+<div id="scene" aria-hidden="true"></div>
+<div id="veil" aria-hidden="true"></div>
 
-<!-- Navigation. Identical on all three pages so every page reaches every other page. -->
-<header>
-  <nav>
-    <a class="mark" href="index.html" aria-label="Home">SI</a>
-    <a class="link" href="index.html" aria-current="page">Home</a>
-    <a class="link" href="proof.html">Proof</a>
-    <a class="link" href="paper.html">Paper</a>
-    <a class="link" href="contact.html">Contact</a>
-    <span class="spacer"></span>
-    <a class="link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call">Email</a>
-  </nav>
-</header>
+<div class="page">
 
-<main class="wrap">
-
-  <!-- 1. The claim. Leads with the refusal, not with accuracy — the change I made
-       after pressure-testing my sitemap in Week 1. -->
-  <p class="kicker">Grounded retrieval</p>
-  <h1>Muhammad Saad Imran</h1>
-  <p class="lead">AI that answers only from your documents &mdash; and says <strong>&ldquo;no match&rdquo;</strong> instead of guessing.</p>
-
-  <div class="rule"></div>
-
-  <!-- 2. Sub-line and short bio. -->
-  <p>Companies that run on documents &mdash; contracts, RFPs, policies &mdash; need an assistant
-  that won&rsquo;t invent an answer when the file doesn&rsquo;t contain one. I build retrieval
-  systems that answer from your own documents and say so when the evidence isn&rsquo;t there.</p>
-
-  <!-- Added after the Week-6 crit (must-fix 2 and 3). The offer used to appear only at the very
-       bottom of the page. The reviewer said that sentence was the one that made him consider making
-       contact, so it now sits near the top. The ask is deliberately smaller than "book a call" —
-       send the problem, not a meeting request — and the promise is an honest answer, including no. -->
-  <p><strong>Buried in documents right now?</strong> Send me the problem itself &mdash; not a meeting
-  request. I&rsquo;ll read it and tell you straight whether this approach fits, and say so plainly if
-  it doesn&rsquo;t. <a class="more" href="contact.html">Send me a message &rarr;</a></p>
-
-  <!-- About, folded into the hero. My sitemap v2 decided About did not earn its own page. -->
-  <div class="about">
-    <img src="profile.jpg" alt="Photograph of Muhammad Saad Imran" width="600" height="600" loading="lazy" decoding="async">
-    <div>
-      <p class="muted" style="margin-bottom:6px;">Software Engineering student at Capital University of Science
-      and Technology, Islamabad. Machine Learning engineering intern at FlyRank AI, July to August 2026.</p>
-      <!-- Rewritten after the Week-6 crit (must-fix 4). This used to say "I work on the retrieval
-           layer" and draw a distinction between retrieval and a ranking/validation problem. The
-           reviewer stopped and re-read it: a founder does not know or care what a retrieval layer
-           is. Same honesty about the second case, without the vocabulary. -->
-      <p class="muted" style="margin-bottom:0;">The two cases below are the same discipline in two
-      settings &mdash; knowing when there is enough evidence to answer, and checking my own results
-      honestly before reporting them.</p>
+<nav>
+  <div class="wrap">
+    <a class="mark" href="#top"><i></i><b>Saad Imran</b><span>Islamabad</span></a>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#paper">Paper</a>
+      <a href="#proof">Proof</a>
+      <a class="cta" href="mailto:saad.imran.xd@gmail.com?subject=Setting%20up%20a%20call">Email me</a>
     </div>
   </div>
+</nav>
 
-  <h2>What I&rsquo;ve built</h2>
+<header class="hero" id="top">
+  <div class="wrap herogrid">
+    <div class="herocopy">
+      <p class="eyebrow"><s></s>Muhammad Saad Imran · Islamabad, Pakistan</p>
+      <h1>Systems that <b>show their evidence</b> — and say <em>no match</em> instead of guessing.</h1>
+      <p class="lede">I'm a final-year Software Engineering student at CUST Islamabad, with a machine learning internship at FlyRank AI behind me. I build <b>retrieval systems, ranking models and platforms</b> that would rather return nothing than return something that merely sounds right.</p>
+      <p class="lede small">Most of what I know, I learned by being wrong on purpose and then measuring it. That habit is the whole of this site.</p>
+      <div class="herobtns">
+        <a class="btn solid" href="#ethic">How I work</a>
+        <a class="btn" href="mailto:saad.imran.xd@gmail.com?subject=Setting%20up%20a%20call">Email me</a>
+      </div>
+      <div class="status">
+        <span><u></u>Open to work from November 2026</span>
+        <span>CGPA 3.66 / 4.00</span>
+        <span>ML track 10 / 10</span>
+      </div>
+    </div>
 
-  <div class="case">
-    <p class="tag">DecisAI &middot; CUST Hackathon 2026</p>
-    <h3 style="margin-top:0;">A bid-response assistant that refuses to answer without evidence</h3>
-    <p>DecisAI reads long RFPs and tenders, checks each requirement against a company&rsquo;s past
-    project record, and drafts a response only where the evidence supports it. Where there is no
-    supporting evidence, it flags the gap rather than filling it.</p>
-    <p style="margin-bottom:0;"><a href="proof.html" class="more">Read the case &rarr;</a></p>
+    <figure class="portrait">
+      <div class="pframe" id="pframe">
+        <video id="hv" class="hvid" playsinline muted loop preload="metadata" poster="hero-poster.jpg" width="1280" height="720" aria-label="Saad at his desk, writing code, with his cat beside the keyboard"><source src="hero.mp4" type="video/mp4"></video>
+        <span class="sheen" aria-hidden="true"></span>
+        <span class="grain" aria-hidden="true"></span>
+        <span class="tick tl" aria-hidden="true"></span>
+        <span class="tick tr" aria-hidden="true"></span>
+        <span class="tick bl" aria-hidden="true"></span>
+        <span class="tick br" aria-hidden="true"></span>
+        <button class="vtoggle" id="vtoggle" type="button" aria-label="Pause the video">❚❚</button>
+      </div>
+      <figcaption><b>Islamabad, 2 a.m.</b> — the cat supervises</figcaption>
+    </figure>
   </div>
 
-  <div class="case">
-    <p class="tag">FlyRank AI &middot; Machine Learning internship &middot; Jul &ndash; Aug 2026</p>
-    <h3 style="margin-top:0;">Prioritising 16,726 pages when an editor can review 50 a week</h3>
-    <p>A 335-week backlog means the useful question is not &ldquo;is this page underperforming?&rdquo;
-    &mdash; thousands are. It is &ldquo;which page should someone open first?&rdquo; I tested my own
-    ranking rule before building on it, and it failed.</p>
-    <!-- Added 7 Sep 2026, the day the credential was issued. The verify link is FlyRank's own,
-         not mine — the whole point of putting it here is that a reader does not have to take my
-         word for the certificate any more than for the numbers. -->
-    <p class="muted">Completed August 2026; the capstone was reviewed and accepted and FlyRank issued a
-    <a href="flyrank-certificate-of-completion.pdf">Certificate of Completion</a>. Credential
-    FR-D11-F1DDA-CDAA7 &mdash;
-    <a href="https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad">verify it with
-    FlyRank</a>.</p>
-    <p style="margin-bottom:0;"><a href="proof.html" class="more">Read the case &rarr;</a></p>
+  <a class="scrollcue" href="#ethic" aria-label="Scroll to how I work"><span>Scroll</span><i></i></a>
+</header>
+
+<section class="wrap" id="ethic">
+  <div class="sechead"><h2>The same rule, three times</h2><span class="rule"></span><p>How I work</p></div>
+  <div class="ethic">
+    <article>
+      <p class="flag">It refuses</p>
+      <h3>The system says no</h3>
+      <p>DecisAI drafts a bid response only where it finds supporting evidence. Everywhere else it writes <b>No match found</b> and flags an evidence gap, rather than something that reads well and is unsupported.</p>
+    </article>
+    <article>
+      <p class="flag">I killed my own idea</p>
+      <h3>The baseline that failed</h3>
+      <p>My first ranking rule scored pages against their search-position tier. Tested, it was <b>5.6% better than predicting one flat number</b>, and gave the entire top 100 an identical score. It became a frozen baseline, not the product.</p>
+    </article>
+    <article>
+      <p class="flag">I was wrong in my own favour</p>
+      <h3>The audit of my own claim</h3>
+      <p>I called a client-grouped validation split a strength without measuring it. When I did, most of the apparent gain was the base rate moving, not skill. The honest number is <b>0.022, not 0.052</b>.</p>
+    </article>
   </div>
+</section>
 
-  <!-- This section was empty and honestly labelled as empty from Week 5 until the paper shipped
-       in Week 8. It now holds the finished paper, which is what the home page had promised. -->
-  <h2>Writing &amp; capstone</h2>
-  <p><strong><a href="paper.html">Which search pages should an editor open first?</a></strong> &mdash;
-  my FlyRank research paper. An editor can review about fifty pages a week from a portfolio of
-  hundreds of thousands, so the question worth answering is not which pages are underperforming but
-  which one to open first. A model against a frozen baseline on client-grouped folds, with the
-  limitations stated before anyone else could raise them.</p>
-  <p class="muted">Built on three months of real production search data.
-  <a href="paper.html">Read the paper &rarr;</a></p>
+<section class="wrap" id="work">
+  <div class="sechead"><h2>Selected work</h2><span class="rule"></span><p>Three of eleven</p></div>
 
-  <!-- 3. The one call to action. Same wording and same link on every page. -->
-  <h2>Work with me</h2>
-  <!-- Narrowed after the Week-6 crit. This used to promise "an assistant you can put in front of a
-       client". The reviewer's point was that I have shown a working prototype that refuses to guess,
-       not a production system on a company's real documents. The claim now matches the evidence,
-       and names the gap rather than waiting to be asked about it. -->
-  <p>If your team is buried in documents &mdash; contracts, RFPs, policies &mdash; I build the part
-  that answers only from what is actually in them, and says &ldquo;no match&rdquo; when the evidence
-  isn&rsquo;t there.</p>
-  <p>I have proved that in a working system, on a 500-page tender. I have not yet run it against a
-  company&rsquo;s live document set &mdash; and I would rather say so here than discover it with you
-  on the call.</p>
-  <!-- This used to be a mailto: link. It depended on the visitor having a mail app
-       registered, and for anyone on webmail it silently did nothing — a call to action
-       that quietly failed. It now points at a real form, which has no such dependency. -->
-  <a class="cta" href="contact.html">Send me a message</a>
-  <p class="muted">Goes to a form that emails me &mdash; no mail app needed. Prefer to write
-  directly? <strong>saad.imran.xd@gmail.com</strong>. Or see
-  <a href="contact.html">what the call covers</a> first.</p>
+  <article class="case">
+    <div>
+      <p class="case-id"><b>Case 01</b> · CUST Hackathon 2026 · team of three · my part: the retrieval layer</p>
+      <h3><a href="https://github.com/Saad-Imran-Toori/DecisAI">DecisAI — a bid assistant that refuses to answer without evidence</a></h3>
+      <p>Proposal teams get tenders running to hundreds of pages. Someone reads every line, pulls out the requirements, and decides whether the company can actually deliver — against a deadline.</p>
+      <p>A company uploads its own bid history and capability records first. I chunked and embedded those with Sentence Transformers into ChromaDB, so each extracted requirement can be matched against what the company has genuinely done before. Claude Haiku runs it online; Ollama handles the offline case, so a tender never has to leave the building.</p>
+      <p class="quote">A validator sits at the end of the pipeline and rejects invented capability IDs, unsupported claims and fabricated metrics. When it fires, the requirement is marked <b>No match found · EVIDENCE GAP</b> and shown to the user — including the AI's own confidence, at 35%, rather than hiding it.</p>
+      <p class="quote warn"><b>What I'd fix first:</b> past about 1,500 pages, retrieval is still slow. That is the honest limit and it is the next thing I would work on.</p>
+      <div class="links">
+        <a href="https://github.com/Saad-Imran-Toori/DecisAI">Repository →</a>
+        <a href="https://saad-imran-toori.github.io/proof.html">Full case study →</a>
+      </div>
+    </div>
+    <aside class="metrics">
+      <div class="m"><b>500</b><span>page synthetic tender,<br>run end to end</span></div>
+      <div class="m"><b>91</b><span>requirements extracted</span></div>
+      <div class="m good"><b>94%</b><span>extraction confidence</span></div>
+      <div class="m bad"><b>9</b><span>compliance gaps flagged,<br>not quietly drafted</span></div>
+      <div class="stack"><span>React 19</span><span>FastAPI</span><span>ChromaDB</span><span>MiniLM-L6-v2</span><span>Ollama</span><span>Claude Haiku</span><span>RandomForest</span><span>PyMuPDF</span></div>
+      <p class="cap">Pipeline: upload → extract → match evidence → compliance → draft → risk → win score → GO / NO-GO → export.</p>
+    </aside>
+  </article>
 
-</main>
+  <article class="case" id="paper">
+    <div>
+      <p class="case-id"><b>Case 02</b> · FlyRank AI · machine learning internship · July – August 2026</p>
+      <h3><a href="https://saad-imran-toori.github.io/paper.html">Which of 16,726 pages should an editor open first?</a></h3>
+      <p>An editor can realistically review about fifty pages a week. That is a 335-week backlog, so the useful question is not "is this page underperforming" — thousands are. It is which one to open first.</p>
+      <p>I trained a gradient-boosted ranker on three months of Google Search Console data, <b>40,152 pages across 24 clients</b>, validated with five-fold client-grouped cross-validation so no client appeared on both sides of a split. It beats the frozen rule in every fold.</p>
+      <p class="quote">And the caveats sit in the same paragraph as the result: the fold spread runs 0.60 to 0.90, roughly half the signal is click history, about half the portfolio is flagged watch-only, and nothing here is causal. The ranking is a reviewer aid, never an automatic publishing decision.</p>
+      <div class="links">
+        <a href="https://saad-imran-toori.github.io/paper.html">Read the paper →</a>
+        <a href="https://github.com/Saad-Imran-Toori/flyrank-ml-internship">Notebooks →</a>
+      </div>
+    </div>
+    <aside class="metrics">
+      <div class="m good"><b>0.784</b><span>precision@50,<br>the model</span></div>
+      <div class="m"><b>0.492</b><span>precision@50,<br>the frozen rule</span></div>
+      <div class="m"><b>81M</b><span>row warehouse, queried<br>in place with DuckDB</span></div>
+      <div class="m bad"><b>0.037 → 0.874</b><span>the leakage trap I built<br>on purpose, then removed</span></div>
+      <div class="stack"><span>DuckDB</span><span>Parquet</span><span>scikit-learn</span><span>pandas</span><span>grouped CV</span><span>precision@k</span></div>
+      <p class="cap">Capstone reviewed and accepted by the lead track mentor. Certificate FR-D11-F1DDA-CDAA7.</p>
+    </aside>
+  </article>
 
-<!-- Footer links. Deliberately quiet and in the footer, not competing with the one
-     call to action above. The CTA is still "email me to set up a call". -->
-<footer class="wrap">
-  <nav class="flinks" aria-label="Find me elsewhere">
-    <a href="https://linkedin.com/in/m-saad-imran">LinkedIn</a>
-    <a href="https://github.com/Saad-Imran-Toori">GitHub</a>
-    <a href="Muhammad-Saad-Imran-CV.pdf">CV</a>
-    <a href="https://wa.me/923216226320">WhatsApp &mdash; book a call</a>
-    <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=saad.imran.xd@gmail.com&amp;su=Setting%20up%20a%20call">Email</a>
-  </nav>
-  <p class="fnote">Built by hand in plain HTML and CSS, with a little JavaScript on the contact
-  form. Hosted on GitHub Pages.</p>
+  <article class="case">
+    <div>
+      <p class="case-id"><b>Case 03</b> · Software Construction &amp; Design · Java desktop</p>
+      <h3><a href="https://github.com/Saad-Imran-Toori/AssetForge-Studio">AssetForge Studio — project tracking built around the thing Jira ignores</a></h3>
+      <p>Indie game teams track tasks in one tool and assets in a folder somewhere. AssetForge puts both in one JavaFX desktop app: seven modules covering dashboard, projects, phases, a Kanban board, an asset library with duplicate and missing-file detection, a bug tracker and a report generator.</p>
+      <p>An eight-entity relational schema behind MVC, DAO and service layers, with Observer driving live dashboard updates, Factory for reports and Strategy for export formats. Tested with JUnit 5 against in-memory H2.</p>
+      <p class="quote">The part I care about is the redesign: <b>four swappable palettes</b> — light, dark, midnight and a high-contrast theme for low-vision users — all driven by lookup tokens, with every change confined to the view layer. The backend has no reference to JavaFX anywhere.</p>
+      <div class="links">
+        <a href="https://github.com/Saad-Imran-Toori/AssetForge-Studio">Repository →</a>
+      </div>
+    </div>
+    <aside class="metrics">
+      <div class="m"><b>7</b><span>modules</span></div>
+      <div class="m"><b>106</b><span>Java files</span></div>
+      <div class="m good"><b>4</b><span>themes, WCAG 2.2 AA</span></div>
+      <div class="m"><b>29</b><span>page UI specification<br>with design tokens</span></div>
+      <div class="stack"><span>Java 21</span><span>JavaFX</span><span>MySQL 8</span><span>Maven</span><span>JasperReports</span><span>JUnit 5</span><span>H2</span></div>
+      <p class="cap">Undo on drag, split-view bug inspector, structured alert boxes with a retry action instead of raw error text.</p>
+    </aside>
+  </article>
+</section>
+
+<section class="wrap">
+  <div class="sechead"><h2>Also built</h2><span class="rule"></span><p>The rest of the shelf</p></div>
+  <div class="more">
+    <a href="https://github.com/Saad-Imran-Toori">
+      <div class="t"><h3>Bongupid Games</h3><span class="st">Shipped</span></div>
+      <p>Game hosting platform. Fifteen published builds and eleven active users at submission, behind a 2,451-line vanilla SPA.</p>
+      <p class="tech">Node · Express · MongoDB · JWT</p>
+    </a>
+    <a href="https://github.com/Saad-Imran-Toori">
+      <div class="t"><h3>Al Makkah Travels</h3><span class="st">Client work</span></div>
+      <p>Bus booking app designed end to end in Figma — passenger and admin roles, a gender-aware 45-seat map, refunds and payment verification.</p>
+      <p class="tech">Figma · UX flows · prototype</p>
+    </a>
+    <a href="https://github.com/Saad-Imran-Toori/flyrank-ml-internship">
+      <div class="t"><h3>RepoWiz</h3><span class="st">Agent</span></div>
+      <p>Read-only evidence agent. It found two real errors in my own archive: notebooks the index called executed that still had unrun cells.</p>
+      <p class="tech">Claude Cowork · read-only tools</p>
+    </a>
+    <a href="https://github.com/Saad-Imran-Toori/automated-testing-ecommerce-admin-panel">
+      <div class="t"><h3>Automated testing suite</h3><span class="st">Four layers</span></div>
+      <p>PHPUnit, JUnit 5 with HtmlUnit, Selenium against real Chrome, and a Dockerised Grid running Chrome and Firefox in parallel.</p>
+      <p class="tech">Selenium Grid · Docker · TestNG</p>
+    </a>
+    <a href="https://github.com/Saad-Imran-Toori/Tic-Tac-Toe-AI-Minimax">
+      <div class="t"><h3>Tic-Tac-Toe Minimax</h3><span class="st">AI course</span></div>
+      <p>Unbeatable Minimax with depth-aware scoring. The board is drawn entirely with Pygame primitives — no image assets at all.</p>
+      <p class="tech">Python · Pygame · Minimax</p>
+    </a>
+    <a href="https://github.com/Saad-Imran-Toori">
+      <div class="t"><h3>More on GitHub</h3><span class="st">Index</span></div>
+      <p>Notebooks, the internship archive, and this site's own source.</p>
+      <p class="tech">github.com/Saad-Imran-Toori</p>
+    </a>
+  </div>
+</section>
+
+<section class="wrap" id="proof">
+  <div class="sechead"><h2>Proof you can check without me</h2><span class="rule"></span><p>Verifiable</p></div>
+  <div class="proof">
+    <div>
+      <dt>Credential</dt>
+      <dd><b>Certificate of Completion</b>Machine Learning track, FlyRank AI, issued 7 September 2026. <a href="https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad">Verify with FlyRank →</a><br><code>FR-D11-F1DDA-CDAA7</code></dd>
+    </div>
+    <div>
+      <dt>Reference</dt>
+      <dd><b>Recommendation letter</b>Signed by the Founder &amp; CEO of FlyRank.ai. Records 32 practical assignments and the capstone reviewed and accepted.<br><code>FR-D10-0F56B-53C68</code></dd>
+    </div>
+    <div>
+      <dt>Study</dt>
+      <dd><b>BS Software Engineering</b>Capital University of Science &amp; Technology, Islamabad. Expected 2027, CGPA 3.66 / 4.00.</dd>
+    </div>
+    <div>
+      <dt>Certified</dt>
+      <dd><b>Google &amp; Anthropic</b>AI Essentials and Prompting Essentials, the six-course Google AI set, six Anthropic Academy courses, and Agile with Atlassian Jira.</dd>
+    </div>
+  </div>
+</section>
+
+<section class="contact wrap" id="contact">
+  <h2>If your team is buried in documents, <b>I build the part that answers only from them.</b></h2>
+  <p>Contracts, RFPs, policies, tenders. Tell me in a sentence or two what the documents are and what goes wrong today, and we'll take twenty minutes on a call. Don't send anything confidential before we've spoken.</p>
+  <div class="honest">
+    <b>What I haven't done yet</b>
+    I have proved this in a working system on a 500-page tender. I have not yet run it against a company's live document set — and I would rather say so here than discover it with you on the call.
+  </div>
+  <div class="reach">
+    <a class="btn solid" href="mailto:saad.imran.xd@gmail.com?subject=Setting%20up%20a%20call">saad.imran.xd@gmail.com</a>
+    <a class="btn" href="https://wa.me/923216226320">WhatsApp</a>
+    <a class="btn" href="https://linkedin.com/in/m-saad-imran">LinkedIn</a>
+    <a class="btn" href="https://github.com/Saad-Imran-Toori">GitHub</a>
+    <a class="btn" href="https://saad-imran-toori.github.io/Muhammad-Saad-Imran-CV.pdf">CV</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Muhammad Saad Imran · Islamabad, Pakistan</span>
+    <span>16,726 points, rendered live</span>
+  </div>
 </footer>
 
+</div>
+
+<script>
+// hero video: autoplay muted unless the visitor asked for less motion, always pausable
+(function () {
+  var v = document.getElementById('hv');
+  var b = document.getElementById('vtoggle');
+  if (!v || !b) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setBtn(playing) {
+    b.textContent = playing ? '❚❚' : '▶';
+    b.setAttribute('aria-label', playing ? 'Pause the video' : 'Play the video');
+  }
+  function start() { var p = v.play(); if (p && p.catch) p.catch(function () { setBtn(false); }); }
+
+  if (reduced) { setBtn(false); } else { start(); setBtn(true); }
+
+  b.addEventListener('click', function () {
+    if (v.paused) { start(); setBtn(true); } else { v.pause(); setBtn(false); }
+  });
+
+  // don't burn battery decoding a video nobody is looking at
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (reduced) return;
+        if (e.isIntersecting) { if (v.dataset.userPaused !== '1') start(); }
+        else v.pause();
+      });
+    }, { threshold: 0.15 }).observe(v);
+    b.addEventListener('click', function () { v.dataset.userPaused = v.paused ? '1' : '0'; });
+  }
+})();
+</script>
+<script>
+// portrait reacts to the cursor — it sits in the same space as the scene behind it
+(function () {
+  var f = document.getElementById('pframe');
+  if (!f || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(hover: none)').matches) return;
+  var rx = 0, ry = 0, tx = 0, ty = 0, raf = null;
+  window.addEventListener('pointermove', function (e) {
+    ty = (e.clientX / window.innerWidth - 0.5) * 13;
+    tx = -(e.clientY / window.innerHeight - 0.5) * 9;
+    if (!raf) raf = requestAnimationFrame(tick);
+  }, { passive: true });
+  function tick() {
+    rx += (tx - rx) * 0.07;
+    ry += (ty - ry) * 0.07;
+    f.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    if (Math.abs(tx - rx) > 0.02 || Math.abs(ty - ry) > 0.02) raf = requestAnimationFrame(tick);
+    else raf = null;
+  }
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  var host = document.getElementById('scene');
+  if (!host || typeof THREE === 'undefined') return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow  = window.innerWidth < 720;
+
+  var renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ antialias: !narrow, alpha: true, powerPreference: 'high-performance' });
+  } catch (e) { return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, narrow ? 1.5 : 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  host.appendChild(renderer.domElement);
+
+  var scene  = new THREE.Scene();
+  scene.fog  = new THREE.FogExp2(0x06070A, 0.0115);
+  var camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 400);
+  camera.position.set(0, 0, 44);
+
+  // 16,726 — the real backlog, one point per page.
+  var COUNT = narrow ? 7000 : 16726;
+  var TOP   = 50;                    // precision@50: the fifty that get reviewed
+  var GAPS  = Math.round(COUNT * 0.0055);
+
+  var pos     = new Float32Array(COUNT * 3);
+  var col     = new Float32Array(COUNT * 3);
+  var cloud   = new Float32Array(COUNT * 3);
+  var queue   = new Float32Array(COUNT * 3);
+  var sheet   = new Float32Array(COUNT * 3);
+
+  function rnd(n) { return (Math.random() - 0.5) * n; }
+
+  // formation A — an undifferentiated cloud of pages
+  for (var i = 0; i < COUNT; i++) {
+    var r = 9 + Math.pow(Math.random(), 0.6) * 40;
+    var t = Math.random() * Math.PI * 2;
+    var p = Math.acos(2 * Math.random() - 1);
+    cloud[i*3]   = r * Math.sin(p) * Math.cos(t);
+    cloud[i*3+1] = r * Math.sin(p) * Math.sin(t) * 0.66;
+    cloud[i*3+2] = r * Math.cos(p) * 0.85 - 4;
+  }
+
+  // formation B — sorted into one ranked queue, best at the top
+  var perRow = narrow ? 26 : 42;
+  for (i = 0; i < COUNT; i++) {
+    var row = Math.floor(i / perRow);
+    var cix = i % perRow;
+    queue[i*3]   = (cix - perRow / 2) * 0.62 + rnd(0.22);
+    queue[i*3+1] = 30 - row * (62 / (COUNT / perRow)) + rnd(0.14);
+    queue[i*3+2] = rnd(2.4) - 6;
+  }
+
+  // formation C — collapsed into one document, 500 pages deep
+  var cols = narrow ? 90 : 150;
+  for (i = 0; i < COUNT; i++) {
+    var cx = i % cols, cy = Math.floor(i / cols);
+    sheet[i*3]   = (cx - cols / 2) * 0.235 + rnd(0.1);
+    sheet[i*3+1] = (cy - (COUNT / cols) / 2) * 0.235 + rnd(0.1);
+    sheet[i*3+2] = rnd(1.6) - 4;
+  }
+
+  pos.set(cloud);
+
+  var geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+
+  var mat = new THREE.PointsMaterial({
+    size: narrow ? 0.46 : 0.40,
+    sizeAttenuation: true,
+    vertexColors: true,
+    transparent: true,
+    opacity: 1,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    fog: true
+  });
+  var points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  // palette
+  var DIM      = new THREE.Color(0x54699B);
+  var EDGE     = new THREE.Color(0x9CBEFF);
+  var EVIDENCE = new THREE.Color(0x46C88A);
+  var NOMATCH  = new THREE.Color(0xE2634A);
+
+  // stable per-point roles so colour never flickers between frames
+  var role = new Uint8Array(COUNT);           // 0 dim · 1 edge · 2 evidence · 3 no-match
+  for (i = 0; i < COUNT; i++) role[i] = Math.random() < 0.16 ? 1 : 0;
+
+  var stage = -1;
+  function paint(next) {
+    if (next === stage) return;
+    stage = next;
+    for (var j = 0; j < COUNT; j++) {
+      var c = role[j] === 1 ? EDGE : DIM;
+      if (stage === 1 && j < TOP) c = EVIDENCE;                     // the fifty reviewed first
+      if (stage === 2) {
+        if (j % 37 === 0) c = EVIDENCE;                             // requirements with evidence
+        else if (j < GAPS) c = NOMATCH;                             // requirements without
+      }
+      col[j*3] = c.r; col[j*3+1] = c.g; col[j*3+2] = c.b;
+    }
+    geo.attributes.color.needsUpdate = true;
+  }
+  paint(0);
+
+  var target = 0, eased = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
+
+  function progress() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    return h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+  }
+  function onScroll() { target = progress(); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if (!narrow) {
+    window.addEventListener('pointermove', function (e) {
+      tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
+      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function form(p) {
+    // 0 → .30 cloud · .30 → .55 queue · .55 → .78 sheet
+    var a, b, t;
+    if (p < 0.30)      { a = cloud; b = cloud; t = 0; }
+    else if (p < 0.55) { a = cloud; b = queue; t = (p - 0.30) / 0.25; }
+    else if (p < 0.78) { a = queue; b = sheet; t = (p - 0.55) / 0.23; }
+    else               { a = sheet; b = sheet; t = 1; }
+    t = t * t * (3 - 2 * t);
+    for (var j = 0; j < COUNT * 3; j++) pos[j] = lerp(a[j], b[j], t);
+    geo.attributes.position.needsUpdate = true;
+    paint(p < 0.38 ? 0 : (p < 0.62 ? 1 : 2));
+  }
+  form(0);
+
+  var last = 0;
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (now - last < 16) return;
+    last = now;
+
+    eased += (target - eased) * 0.075;
+    mx    += (tmx - mx) * 0.05;
+    my    += (tmy - my) * 0.05;
+
+    form(eased);
+
+    camera.position.z = 44 - eased * 22;
+    camera.position.x = mx * 5;
+    camera.position.y = -my * 3 + eased * 2;
+    camera.lookAt(0, eased * 1.5, -8);
+
+    points.rotation.y = 0.06 * Math.sin(now * 0.00006) + mx * 0.03;
+    mat.opacity = eased > 0.80 ? Math.max(0.24, 1 - (eased - 0.80) * 3.8) : 1;
+
+    renderer.render(scene, camera);
+  }
+
+  if (reduced) {
+    form(0.05);
+    renderer.render(scene, camera);
+    window.addEventListener('scroll', function () {
+      eased = target; form(eased);
+      camera.position.z = 44 - eased * 22;
+      camera.lookAt(0, eased * 1.5, -8);
+      renderer.render(scene, camera);
+    }, { passive: true });
+  } else {
+    requestAnimationFrame(frame);
+  }
+
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (reduced) renderer.render(scene, camera);
+    }, 120);
+  });
+})();
+</script>
 </body>
 </html>
