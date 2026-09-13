@@ -63,13 +63,33 @@ a:focus-visible{outline:2px solid var(--edge);outline-offset:3px}
 
 /* ---------- hero ---------- */
 .film{
-  position:relative;height:100svh;min-height:460px;overflow:hidden;
-  display:flex;align-items:flex-end;background:var(--void);
+  position:relative;height:100svh;min-height:460px;
+  display:flex;background:var(--void);
+  padding:clamp(9px,1.35vw,20px);
+}
+/* the video sits inside a rounded plate, so the black page reads as its frame */
+.plate{
+  position:relative;flex:1;min-width:0;
+  display:flex;align-items:flex-end;
+  border-radius:clamp(14px,1.7vw,26px);
+  overflow:hidden;isolation:isolate;
+  background:#000;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,1),
+    0 0 0 2px rgba(233,235,242,.07),
+    0 42px 90px -54px rgba(0,0,0,1),
+    0 0 90px -30px rgba(127,168,255,.13);
 }
 .film video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:60% 50%;
   filter:saturate(.95) contrast(1.05) brightness(.9);
+}
+/* a hairline drawn on top, so the rounded edge stays crisp over the footage */
+.plate::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+  border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(233,235,242,.13);
 }
 .film .scrim{
   position:absolute;inset:0;pointer-events:none;
@@ -194,6 +214,7 @@ footer{
 <div class="page">
 
   <section class="film" id="top">
+   <div class="plate">
     <video id="hv" playsinline muted loop preload="auto" poster="hero-poster.jpg"
            width="1280" height="720"
            aria-label="Saad at his desk writing code, with his cat beside the keyboard">
@@ -207,6 +228,7 @@ footer{
       <p class="role">Retrieval systems, ranking models, and platforms that <b>show their evidence</b> — and say <b>no match</b> instead of guessing.</p>
     </div>
     <span class="scrollcue" aria-hidden="true"><span>Scroll</span><i></i></span>
+   </div>
   </section>
 
   <div class="drift" aria-hidden="true"></div>
@@ -280,9 +302,13 @@ footer{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 /* 16,726 points — one per page in the FlyRank backlog.
-   Scrolling moves a camera through them and re-forms them:
-   an unsorted cloud, then one ranked queue with the top 50 lit,
-   then a single document with matches and gaps marked. */
+
+   A front rank of ~2,400 points carries the shape and re-forms as you scroll:
+     cloud  → the backlog, unsorted
+     queue  → one ranked list, the top 50 lit green
+     sheet  → a single tilted document, matches green, gaps red
+   The remaining ~14,000 sit behind as a deep haze: the part nobody gets to.
+   Spacing always exceeds the dot size, so the field never fuses into a slab. */
 (function () {
   var host = document.getElementById('scene');
   if (!host || typeof THREE === 'undefined') return;
@@ -298,68 +324,117 @@ footer{
   host.appendChild(renderer.domElement);
 
   var scene  = new THREE.Scene();
-  scene.fog  = new THREE.FogExp2(0x06070A, 0.0115);
-  var camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 400);
-  camera.position.set(0, 0, 44);
+  scene.fog  = new THREE.FogExp2(0x06070A, 0.0135);
+  var camera = new THREE.PerspectiveCamera(56, window.innerWidth / window.innerHeight, 0.1, 600);
 
   var COUNT = narrow ? 7000 : 16726;
-  var TOP = 50, GAPS = Math.round(COUNT * 0.0055);
+  var COLS  = narrow ? 18 : 24;                  // width of the ranked queue
+  var SCOL  = narrow ? 44 : 58;                  // width of the document
+  var SROW  = narrow ? 34 : 42;                  // height of the document
+  var FRONT = Math.min(COUNT, SCOL * SROW);      // points that carry the shape
+  var TOP   = 50;
 
-  var pos = new Float32Array(COUNT*3), col = new Float32Array(COUNT*3);
-  var cloud = new Float32Array(COUNT*3), queue = new Float32Array(COUNT*3), sheet = new Float32Array(COUNT*3);
-  function rnd(n){ return (Math.random()-0.5)*n; }
+  var pos   = new Float32Array(COUNT * 3),
+      col   = new Float32Array(COUNT * 3),
+      cloud = new Float32Array(COUNT * 3),
+      queue = new Float32Array(COUNT * 3),
+      sheet = new Float32Array(COUNT * 3);
+  function rnd(n){ return (Math.random() - 0.5) * n; }
 
-  for (var i = 0; i < COUNT; i++) {
-    var r = 9 + Math.pow(Math.random(), 0.6) * 40;
+  var i;
+
+  /* the haze — identical in every formation, so only the front rank moves */
+  for (i = FRONT; i < COUNT; i++) {
+    var hr = 26 + Math.pow(Math.random(), 0.7) * 46;
+    var ht = Math.random() * Math.PI * 2;
+    var hp = Math.acos(2 * Math.random() - 1);
+    var hx = hr * Math.sin(hp) * Math.cos(ht);
+    var hy = hr * Math.sin(hp) * Math.sin(ht) * 0.62;
+    var hz = -14 - Math.abs(hr * Math.cos(hp)) * 0.8;
+    cloud[i*3] = queue[i*3] = sheet[i*3] = hx;
+    cloud[i*3+1] = queue[i*3+1] = sheet[i*3+1] = hy;
+    cloud[i*3+2] = queue[i*3+2] = sheet[i*3+2] = hz;
+  }
+
+  /* A — the backlog, undifferentiated */
+  for (i = 0; i < FRONT; i++) {
+    var r = 5 + Math.pow(Math.random(), 0.5) * 21;
     var t = Math.random() * Math.PI * 2;
-    var p = Math.acos(2 * Math.random() - 1);
-    cloud[i*3]   = r * Math.sin(p) * Math.cos(t);
-    cloud[i*3+1] = r * Math.sin(p) * Math.sin(t) * 0.66;
-    cloud[i*3+2] = r * Math.cos(p) * 0.85 - 4;
+    var ph = Math.acos(2 * Math.random() - 1);
+    cloud[i*3]   = r * Math.sin(ph) * Math.cos(t);
+    cloud[i*3+1] = r * Math.sin(ph) * Math.sin(t) * 0.8;
+    cloud[i*3+2] = r * Math.cos(ph) * 0.9;
   }
-  var perRow = narrow ? 26 : 42;
-  for (i = 0; i < COUNT; i++) {
-    var row = Math.floor(i / perRow), cix = i % perRow;
-    queue[i*3]   = (cix - perRow/2) * 0.62 + rnd(0.22);
-    queue[i*3+1] = 30 - row * (62 / (COUNT / perRow)) + rnd(0.14);
-    queue[i*3+2] = rnd(2.4) - 6;
+
+  /* B — one ranked queue, best at the top, turned slightly for depth */
+  var GX = 0.78, GY = 0.50, QROT = 0.22;
+  for (i = 0; i < FRONT; i++) {
+    var row = Math.floor(i / COLS), cix = i % COLS;
+    var qx = (cix - COLS / 2) * GX + rnd(0.12);
+    var qy = 17 - row * GY + rnd(0.09);
+    var qz = rnd(2.2);
+    queue[i*3]   = qx * Math.cos(QROT) + qz * Math.sin(QROT);
+    queue[i*3+1] = qy;
+    queue[i*3+2] = -qx * Math.sin(QROT) + qz * Math.cos(QROT);
   }
-  var cols = narrow ? 90 : 150;
-  for (i = 0; i < COUNT; i++) {
-    var cx = i % cols, cy = Math.floor(i / cols);
-    sheet[i*3]   = (cx - cols/2) * 0.235 + rnd(0.1);
-    sheet[i*3+1] = (cy - (COUNT/cols)/2) * 0.235 + rnd(0.1);
-    sheet[i*3+2] = rnd(1.6) - 4;
+
+  /* C — one document, tilted in space rather than flat to the camera */
+  var SG = 0.60, RX = -0.34, RY = 0.40;
+  for (i = 0; i < FRONT; i++) {
+    var cx = i % SCOL, cy = Math.floor(i / SCOL);
+    var sx = (cx - SCOL / 2) * SG + rnd(0.1);
+    var sy = (SROW / 2 - cy) * SG + rnd(0.1);
+    var sz = rnd(0.7);
+    var y1 = sy * Math.cos(RX) - sz * Math.sin(RX);
+    var z1 = sy * Math.sin(RX) + sz * Math.cos(RX);
+    sheet[i*3]   = sx * Math.cos(RY) + z1 * Math.sin(RY);
+    sheet[i*3+1] = y1;
+    sheet[i*3+2] = -sx * Math.sin(RY) + z1 * Math.cos(RY);
   }
+
   pos.set(cloud);
 
   var geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+
+  /* normal blending, not additive — overlapping dots must never sum to white */
   var mat = new THREE.PointsMaterial({
-    size: narrow ? 0.46 : 0.40, sizeAttenuation: true, vertexColors: true,
-    transparent: true, opacity: 1, depthWrite: false,
-    blending: THREE.AdditiveBlending, fog: true
+    size: narrow ? 0.40 : 0.34,
+    sizeAttenuation: true,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.95,
+    depthWrite: false,
+    blending: THREE.NormalBlending,
+    fog: true
   });
   var points = new THREE.Points(geo, mat);
   scene.add(points);
 
-  var DIM = new THREE.Color(0x54699B), EDGE = new THREE.Color(0x9CBEFF),
-      EVIDENCE = new THREE.Color(0x46C88A), NOMATCH = new THREE.Color(0xE2634A);
+  var DIM      = new THREE.Color(0x5E76B4),
+      HAZE     = new THREE.Color(0x2E3C5E),
+      EDGE     = new THREE.Color(0x9FC2FF),
+      EVIDENCE = new THREE.Color(0x46C88A),
+      NOMATCH  = new THREE.Color(0xE2634A);
 
   var role = new Uint8Array(COUNT);
-  for (i = 0; i < COUNT; i++) role[i] = Math.random() < 0.16 ? 1 : 0;
+  for (i = 0; i < COUNT; i++) role[i] = Math.random() < 0.13 ? 1 : 0;
 
   var stage = -1;
   function paint(next) {
     if (next === stage) return;
     stage = next;
     for (var j = 0; j < COUNT; j++) {
-      var c = role[j] === 1 ? EDGE : DIM;
-      if (stage === 1 && j < TOP) c = EVIDENCE;
-      if (stage === 2) {
-        if (j % 37 === 0) c = EVIDENCE;
-        else if (j < GAPS) c = NOMATCH;
+      var c;
+      if (j >= FRONT) c = HAZE;
+      else {
+        c = role[j] === 1 ? EDGE : DIM;
+        if (stage === 1 && j < TOP) c = EVIDENCE;
+        if (stage === 2) {
+          if (j % 43 === 0) c = EVIDENCE;
+          else if (j % 397 === 5) c = NOMATCH;
+        }
       }
       col[j*3] = c.r; col[j*3+1] = c.g; col[j*3+2] = c.b;
     }
@@ -367,7 +442,16 @@ footer{
   }
   paint(0);
 
+  /* each formation wants its own camera distance and framing */
+  var VIEW = [
+    { z: 44, y:  0, look:  0 },   // cloud
+    { z: 34, y:  8, look:  8 },   // queue — sit level with the top of the ranking
+    { z: 40, y:  0, look:  0 }    // document — far enough to read the whole page
+  ];
+
   var target = 0, eased = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
+  var camZ = VIEW[0].z, camY = VIEW[0].y, camL = VIEW[0].look;
+
   function progress() {
     var h = document.documentElement.scrollHeight - window.innerHeight;
     return h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
@@ -384,44 +468,46 @@ footer{
   }
 
   function lerp(a,b,t){ return a + (b-a)*t; }
+
   function form(p) {
-    var a, b, t;
-    if (p < 0.26)      { a = cloud; b = cloud; t = 0; }
-    else if (p < 0.56) { a = cloud; b = queue; t = (p - 0.26) / 0.30; }
-    else if (p < 0.86) { a = queue; b = sheet; t = (p - 0.56) / 0.30; }
-    else               { a = sheet; b = sheet; t = 1; }
+    var a, b, t, va, vb;
+    if (p < 0.22)      { a = cloud; b = cloud; t = 0; va = VIEW[0]; vb = VIEW[0]; }
+    else if (p < 0.54) { a = cloud; b = queue; t = (p - 0.22) / 0.32; va = VIEW[0]; vb = VIEW[1]; }
+    else if (p < 0.86) { a = queue; b = sheet; t = (p - 0.54) / 0.32; va = VIEW[1]; vb = VIEW[2]; }
+    else               { a = sheet; b = sheet; t = 1; va = VIEW[2]; vb = VIEW[2]; }
     t = t * t * (3 - 2 * t);
-    for (var j = 0; j < COUNT*3; j++) pos[j] = lerp(a[j], b[j], t);
+    for (var j = 0; j < FRONT * 3; j++) pos[j] = lerp(a[j], b[j], t);
     geo.attributes.position.needsUpdate = true;
-    paint(p < 0.36 ? 0 : (p < 0.66 ? 1 : 2));
+    camZ = lerp(va.z, vb.z, t);
+    camY = lerp(va.y, vb.y, t);
+    camL = lerp(va.look, vb.look, t);
+    paint(p < 0.33 ? 0 : (p < 0.64 ? 1 : 2));
   }
   form(0);
+
+  function place() {
+    camera.position.set(mx * 4, camY - my * 2.2, camZ);
+    camera.lookAt(0, camL, 0);
+  }
 
   var last = 0;
   function frame(now) {
     requestAnimationFrame(frame);
     if (now - last < 16) return;
     last = now;
-    eased += (target - eased) * 0.075;
+    eased += (target - eased) * 0.07;
     mx += (tmx - mx) * 0.05;
     my += (tmy - my) * 0.05;
     form(eased);
-    camera.position.z = 46 - eased * 26;
-    camera.position.x = mx * 5;
-    camera.position.y = -my * 3 + eased * 2;
-    camera.lookAt(0, eased * 1.5, -8);
-    points.rotation.y = 0.06 * Math.sin(now * 0.00006) + mx * 0.03;
+    place();
+    points.rotation.y = 0.045 * Math.sin(now * 0.00005) + mx * 0.02;
     renderer.render(scene, camera);
   }
 
   if (reduced) {
-    form(0.05);
-    renderer.render(scene, camera);
+    form(0.03); place(); renderer.render(scene, camera);
     window.addEventListener('scroll', function () {
-      eased = target; form(eased);
-      camera.position.z = 46 - eased * 26;
-      camera.lookAt(0, eased * 1.5, -8);
-      renderer.render(scene, camera);
+      eased = target; form(eased); place(); renderer.render(scene, camera);
     }, { passive: true });
   } else {
     requestAnimationFrame(frame);
