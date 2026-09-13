@@ -63,8 +63,28 @@ a:focus-visible{outline:2px solid var(--edge);outline-offset:3px}
 
 /* ---------- hero ---------- */
 .film{
-  position:relative;height:100svh;min-height:460px;overflow:hidden;
-  display:flex;align-items:flex-end;background:var(--void);
+  position:relative;height:100svh;min-height:460px;
+  display:flex;background:var(--void);
+  padding:clamp(9px,1.35vw,20px);
+}
+/* the video sits on a rounded plate, so the black page reads as its frame */
+.plate{
+  position:relative;flex:1;min-width:0;
+  display:flex;align-items:flex-end;
+  border-radius:clamp(14px,1.7vw,26px);
+  overflow:hidden;isolation:isolate;
+  background:#000;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,1),
+    0 0 0 2px rgba(233,235,242,.07),
+    0 42px 90px -54px rgba(0,0,0,1),
+    0 0 90px -30px rgba(127,168,255,.13);
+}
+/* hairline drawn over the footage, so the curve stays crisp on bright frames */
+.plate::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+  border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(233,235,242,.13);
 }
 .film video{
   position:absolute;inset:0;width:100%;height:100%;
@@ -194,6 +214,7 @@ footer{
 <div class="page">
 
   <section class="film" id="top">
+   <div class="plate">
     <video id="hv" playsinline muted loop preload="auto" poster="hero-poster.jpg"
            width="1280" height="720"
            aria-label="Saad at his desk writing code, with his cat beside the keyboard">
@@ -207,6 +228,7 @@ footer{
       <p class="role">Retrieval systems, ranking models, and platforms that <b>show their evidence</b> — and say <b>no match</b> instead of guessing.</p>
     </div>
     <span class="scrollcue" aria-hidden="true"><span>Scroll</span><i></i></span>
+   </div>
   </section>
 
   <div class="drift" aria-hidden="true"></div>
