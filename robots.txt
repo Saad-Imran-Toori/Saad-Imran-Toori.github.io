@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://saad-imran-toori.github.io/sitemap.xml
