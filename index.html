@@ -279,10 +279,9 @@ footer{
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* 16,726 points — one per page in the FlyRank backlog.
-   Scrolling moves a camera through them and re-forms them:
-   an unsorted cloud, then one ranked queue with the top 50 lit,
-   then a single document with matches and gaps marked. */
+/* One scattered field of 16,726 points — one per page in the FlyRank backlog.
+   It never gathers and it never comes closer. Scrolling slides it past you;
+   stop scrolling and it stops. Nothing here animates on its own. */
 (function () {
   var host = document.getElementById('scene');
   if (!host || typeof THREE === 'undefined') return;
@@ -298,76 +297,60 @@ footer{
   host.appendChild(renderer.domElement);
 
   var scene  = new THREE.Scene();
-  scene.fog  = new THREE.FogExp2(0x06070A, 0.0115);
-  var camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 400);
-  camera.position.set(0, 0, 44);
+  scene.fog  = new THREE.FogExp2(0x06070A, 0.0068);
+  var camera = new THREE.PerspectiveCamera(56, window.innerWidth / window.innerHeight, 0.1, 700);
+  camera.position.set(0, 0, 34);
+  camera.lookAt(0, 0, -40);
 
-  var COUNT = narrow ? 7000 : 16726;
-  var TOP = 50, GAPS = Math.round(COUNT * 0.0055);
+  var COUNT  = narrow ? 6500 : 16726;
+  var SPAN_X = narrow ? 130 : 190;   // wider than the view, so the edges never run out
+  var SPAN_Y = 240;                  // taller than the scroll drift, so it never runs dry
+  var NEAR_Z = 6, FAR_Z = 200;
 
-  var pos = new Float32Array(COUNT*3), col = new Float32Array(COUNT*3);
-  var cloud = new Float32Array(COUNT*3), queue = new Float32Array(COUNT*3), sheet = new Float32Array(COUNT*3);
-  function rnd(n){ return (Math.random()-0.5)*n; }
+  var pos = new Float32Array(COUNT * 3);
+  var col = new Float32Array(COUNT * 3);
+
+  var DIM   = new THREE.Color(0x4A5F94),
+      MID   = new THREE.Color(0x7B96D6),
+      EDGE  = new THREE.Color(0xAFC9FF),
+      GREEN = new THREE.Color(0x46C88A),
+      WARM  = new THREE.Color(0xE2634A);
 
   for (var i = 0; i < COUNT; i++) {
-    var r = 9 + Math.pow(Math.random(), 0.6) * 40;
-    var t = Math.random() * Math.PI * 2;
-    var p = Math.acos(2 * Math.random() - 1);
-    cloud[i*3]   = r * Math.sin(p) * Math.cos(t);
-    cloud[i*3+1] = r * Math.sin(p) * Math.sin(t) * 0.66;
-    cloud[i*3+2] = r * Math.cos(p) * 0.85 - 4;
+    pos[i*3]   = (Math.random() - 0.5) * SPAN_X;
+    pos[i*3+1] = (Math.random() - 0.5) * SPAN_Y;
+    pos[i*3+2] = -(NEAR_Z + Math.pow(Math.random(), 0.62) * (FAR_Z - NEAR_Z));
+
+    var r = Math.random(), c;
+    if      (r < 0.014) c = GREEN;   // a few evidence-green
+    else if (r < 0.020) c = WARM;    // fewer still in the other direction
+    else if (r < 0.140) c = EDGE;
+    else if (r < 0.380) c = MID;
+    else                c = DIM;
+    col[i*3] = c.r; col[i*3+1] = c.g; col[i*3+2] = c.b;
   }
-  var perRow = narrow ? 26 : 42;
-  for (i = 0; i < COUNT; i++) {
-    var row = Math.floor(i / perRow), cix = i % perRow;
-    queue[i*3]   = (cix - perRow/2) * 0.62 + rnd(0.22);
-    queue[i*3+1] = 30 - row * (62 / (COUNT / perRow)) + rnd(0.14);
-    queue[i*3+2] = rnd(2.4) - 6;
-  }
-  var cols = narrow ? 90 : 150;
-  for (i = 0; i < COUNT; i++) {
-    var cx = i % cols, cy = Math.floor(i / cols);
-    sheet[i*3]   = (cx - cols/2) * 0.235 + rnd(0.1);
-    sheet[i*3+1] = (cy - (COUNT/cols)/2) * 0.235 + rnd(0.1);
-    sheet[i*3+2] = rnd(1.6) - 4;
-  }
-  pos.set(cloud);
 
   var geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   geo.setAttribute('color',    new THREE.BufferAttribute(col, 3));
+
+  /* normal blending — overlapping dots must never sum to white */
   var mat = new THREE.PointsMaterial({
-    size: narrow ? 0.46 : 0.40, sizeAttenuation: true, vertexColors: true,
-    transparent: true, opacity: 1, depthWrite: false,
-    blending: THREE.AdditiveBlending, fog: true
+    size: narrow ? 0.62 : 0.55,
+    sizeAttenuation: true,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.95,
+    depthWrite: false,
+    blending: THREE.NormalBlending,
+    fog: true
   });
   var points = new THREE.Points(geo, mat);
   scene.add(points);
 
-  var DIM = new THREE.Color(0x54699B), EDGE = new THREE.Color(0x9CBEFF),
-      EVIDENCE = new THREE.Color(0x46C88A), NOMATCH = new THREE.Color(0xE2634A);
+  var DRIFT = 46;              // how far the field slides across a full scroll
+  var target = 0, eased = 0;
 
-  var role = new Uint8Array(COUNT);
-  for (i = 0; i < COUNT; i++) role[i] = Math.random() < 0.16 ? 1 : 0;
-
-  var stage = -1;
-  function paint(next) {
-    if (next === stage) return;
-    stage = next;
-    for (var j = 0; j < COUNT; j++) {
-      var c = role[j] === 1 ? EDGE : DIM;
-      if (stage === 1 && j < TOP) c = EVIDENCE;
-      if (stage === 2) {
-        if (j % 37 === 0) c = EVIDENCE;
-        else if (j < GAPS) c = NOMATCH;
-      }
-      col[j*3] = c.r; col[j*3+1] = c.g; col[j*3+2] = c.b;
-    }
-    geo.attributes.color.needsUpdate = true;
-  }
-  paint(0);
-
-  var target = 0, eased = 0, mx = 0, my = 0, tmx = 0, tmy = 0;
   function progress() {
     var h = document.documentElement.scrollHeight - window.innerHeight;
     return h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
@@ -375,56 +358,25 @@ footer{
   function onScroll(){ target = progress(); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+  eased = target;
 
-  if (!narrow) {
-    window.addEventListener('pointermove', function (e) {
-      tmx = (e.clientX / window.innerWidth  - 0.5) * 2;
-      tmy = (e.clientY / window.innerHeight - 0.5) * 2;
-    }, { passive: true });
-  }
-
-  function lerp(a,b,t){ return a + (b-a)*t; }
-  function form(p) {
-    var a, b, t;
-    if (p < 0.26)      { a = cloud; b = cloud; t = 0; }
-    else if (p < 0.56) { a = cloud; b = queue; t = (p - 0.26) / 0.30; }
-    else if (p < 0.86) { a = queue; b = sheet; t = (p - 0.56) / 0.30; }
-    else               { a = sheet; b = sheet; t = 1; }
-    t = t * t * (3 - 2 * t);
-    for (var j = 0; j < COUNT*3; j++) pos[j] = lerp(a[j], b[j], t);
-    geo.attributes.position.needsUpdate = true;
-    paint(p < 0.36 ? 0 : (p < 0.66 ? 1 : 2));
-  }
-  form(0);
-
-  var last = 0;
-  function frame(now) {
-    requestAnimationFrame(frame);
-    if (now - last < 16) return;
-    last = now;
-    eased += (target - eased) * 0.075;
-    mx += (tmx - mx) * 0.05;
-    my += (tmy - my) * 0.05;
-    form(eased);
-    camera.position.z = 46 - eased * 26;
-    camera.position.x = mx * 5;
-    camera.position.y = -my * 3 + eased * 2;
-    camera.lookAt(0, eased * 1.5, -8);
-    points.rotation.y = 0.06 * Math.sin(now * 0.00006) + mx * 0.03;
+  function draw() {
+    points.position.y = eased * DRIFT;   // slide, never approach
     renderer.render(scene, camera);
   }
+  draw();
 
-  if (reduced) {
-    form(0.05);
-    renderer.render(scene, camera);
-    window.addEventListener('scroll', function () {
-      eased = target; form(eased);
-      camera.position.z = 46 - eased * 26;
-      camera.lookAt(0, eased * 1.5, -8);
-      renderer.render(scene, camera);
-    }, { passive: true });
+  if (!reduced) {
+    /* only redraw while the scroll is still catching up — idle otherwise */
+    (function loop() {
+      requestAnimationFrame(loop);
+      var d = target - eased;
+      if (Math.abs(d) < 0.00025) { eased = target; return; }
+      eased += d * 0.06;
+      draw();
+    })();
   } else {
-    requestAnimationFrame(frame);
+    window.addEventListener('scroll', function () { eased = target; draw(); }, { passive: true });
   }
 
   var rt;
@@ -434,7 +386,7 @@ footer{
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      if (reduced) renderer.render(scene, camera);
+      draw();
     }, 120);
   });
 })();
