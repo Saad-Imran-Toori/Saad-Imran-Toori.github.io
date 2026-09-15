@@ -375,29 +375,28 @@ footer{
 }
 .phead:hover .pstack span{border-color:rgba(233,235,242,.2)}
 
-/* click to see the complete project */
-.pgo{
-  display:flex;flex-direction:column;align-items:flex-end;gap:7px;
-  text-decoration:none;color:var(--faint);max-width:192px;text-align:right;
+/* the ways in — one button per real destination */
+.plinks{display:flex;flex-direction:column;gap:9px;min-width:212px}
+@media (max-width:760px){.plinks{flex-direction:row;flex-wrap:wrap;min-width:0;width:100%}}
+.plinks a{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;
+  text-decoration:none;padding:11px 14px;border-radius:7px;
+  border:1px solid rgba(233,235,242,.16);color:var(--text);
+  transition:border-color .2s,color .2s,background .2s;
 }
-.pgo .arw{
-  display:flex;align-items:center;justify-content:center;
-  width:74px;height:38px;border:1px solid rgba(233,235,242,.16);border-radius:7px;
-  color:var(--accent);font-size:19px;line-height:1;
-  transition:transform .26s cubic-bezier(.2,.7,.3,1),border-color .24s,background .24s;
+.plinks a .g{color:var(--faint);font-size:12px;transition:transform .24s cubic-bezier(.2,.7,.3,1),color .2s}
+.plinks a:hover{border-color:var(--accent);color:var(--accent);background:rgba(233,235,242,.035)}
+.plinks a:hover .g{color:var(--accent);transform:translate(3px,-3px)}
+.plinks a.lead{background:var(--text);color:var(--void);border-color:var(--text);font-weight:600}
+.plinks a.lead .g{color:rgba(6,7,10,.6)}
+.plinks a.lead:hover{background:var(--accent);border-color:var(--accent);color:var(--void)}
+.plinks a.lead:hover .g{color:rgba(6,7,10,.7)}
+.plinks .none{
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--faint);padding:11px 2px;line-height:1.6;text-align:right;
 }
-.pgo .arw b{display:block;transition:transform .26s cubic-bezier(.2,.7,.3,1)}
-.pgo:hover .arw{border-color:var(--accent);background:rgba(233,235,242,.04)}
-.pgo:hover .arw b{transform:translateX(5px)}
-.pgo .lbl{
-  font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;line-height:1.5;
-  transition:color .2s;
-}
-.pgo:hover .lbl{color:var(--accent)}
-@media (max-width:760px){
-  .pgo{flex-direction:row;align-items:center;max-width:none;text-align:left;gap:12px}
-  .pgo .arw{width:54px;height:34px}
-}
+@media (max-width:760px){.plinks .none{text-align:left}}
 
 /* the wide picture band */
 .pshot{
@@ -455,6 +454,8 @@ footer{
 .also li{font-size:14.5px;line-height:1.62;color:#A8B1C4;padding-left:15px;position:relative}
 .also li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--edge);opacity:.75}
 .also li b{display:block;color:#E9EBF2;font-weight:500;margin-bottom:3px}
+.also li b a{color:inherit;text-decoration:none;transition:color .2s}
+.also li b a:hover{color:var(--edge)}
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -561,10 +562,7 @@ footer{
             <p class="psub">A place to publish a browser game and watch whether anyone plays it &mdash; discovery, in-page play, ratings and per-game analytics, with a publishing pipeline developers actually use.</p>
             <div class="pstack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span><span>Google OAuth</span><span>Cloudflare R2</span><span>Vanilla ES6</span></div>
           </div>
-        <a class="pgo" href="https://bongupid.games" target="_blank" rel="noopener">
-          <span class="arw" aria-hidden="true"><b>&rarr;</b></span>
-          <span class="lbl">Click to see the complete project</span>
-        </a>
+          <div class="plinks"><a class="lead" href="https://bongupid.games" target="_blank" rel="noopener">Visit the live site<span class="g" aria-hidden="true">&#8599;</span></a><span class="none">Source private &mdash; client build</span></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">bongupid.games &mdash; live now</p>
@@ -580,10 +578,7 @@ footer{
             <p class="psub">An AI system that reads a tender, finds every requirement in it, and checks each one against what the company has genuinely delivered before &mdash; then tells you whether to bid.</p>
             <div class="pstack"><span>React 19</span><span>Vite</span><span>FastAPI</span><span>ChromaDB</span><span>Sentence Transformers</span><span>Claude API</span><span>Ollama</span></div>
           </div>
-        <a class="pgo" href="https://github.com/Saad-Imran-Toori/DecisAI" target="_blank" rel="noopener">
-          <span class="arw" aria-hidden="true"><b>&rarr;</b></span>
-          <span class="lbl">Click to see the complete project</span>
-        </a>
+          <div class="plinks"><a class="lead" href="https://github.com/Saad-Imran-Toori/DecisAI" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">Screenshot to follow</p>
@@ -599,10 +594,7 @@ footer{
             <p class="psub">One desktop workspace for a small game studio &mdash; projects, phases, a drag-and-drop board, an asset library, a bug tracker and a report generator, all kept in step with each other.</p>
             <div class="pstack"><span>Java 21</span><span>JavaFX</span><span>Maven</span><span>MySQL</span><span>JasperReports</span><span>JUnit 5</span></div>
           </div>
-        <a class="pgo" href="https://github.com/Saad-Imran-Toori/AssetForge-Studio" target="_blank" rel="noopener">
-          <span class="arw" aria-hidden="true"><b>&rarr;</b></span>
-          <span class="lbl">Click to see the complete project</span>
-        </a>
+          <div class="plinks"><a class="lead" href="https://github.com/Saad-Imran-Toori/AssetForge-Studio" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">Screenshot to follow</p>
@@ -627,9 +619,9 @@ footer{
       <div class="also card">
         <h3>Also built</h3>
         <ul>
-          <li><b>Automated test framework</b>A multi-layer suite for an e-commerce admin panel &mdash; Selenium WebDriver and Grid in Docker, JUnit 5, PHPUnit and Postman.</li>
+          <li><b><a href="https://github.com/Saad-Imran-Toori/automated-testing-ecommerce-admin-panel" target="_blank" rel="noopener">Automated test framework &#8599;</a></b>A multi-layer suite for an e-commerce admin panel &mdash; Selenium WebDriver and Grid in Docker, JUnit 5, PHPUnit and Postman.</li>
           <li><b>Bus-booking application</b>A complete two-role product designed in Figma across 25+ linked screens for an external client.</li>
-          <li><b>Unbeatable Tic-Tac-Toe</b>Minimax with depth-based evaluation, drawn entirely from Pygame primitives.</li>
+          <li><b><a href="https://github.com/Saad-Imran-Toori/Tic-Tac-Toe-AI-Minimax" target="_blank" rel="noopener">Unbeatable Tic-Tac-Toe &#8599;</a></b>Minimax with depth-based evaluation, drawn entirely from Pygame primitives.</li>
         </ul>
       </div>
     </div>
