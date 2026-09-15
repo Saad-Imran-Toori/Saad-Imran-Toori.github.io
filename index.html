@@ -193,14 +193,51 @@ h1{
 /* three short stories */
 .avalues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(30px,4vw,48px)}
 @media (max-width:820px){.avalues{grid-template-columns:minmax(0,1fr)}}
-.avalues article{padding:20px 20px 22px;display:flex;flex-direction:column;gap:9px}
-.avalues h3{font-family:var(--display);font-weight:600;font-size:15.5px;letter-spacing:-.01em;margin:0;color:var(--text)}
-.avalues p{margin:0;font-size:13.4px;line-height:1.6;color:var(--muted)}
-.avalues .n{
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--edge);
+.avalues article{
+  padding:24px 24px 26px;display:flex;flex-direction:column;gap:11px;position:relative;
+  transition:transform .26s cubic-bezier(.2,.7,.3,1), border-color .26s, background .26s;
 }
-.avalues article:nth-child(2) .n{color:var(--evidence)}
-.avalues article:nth-child(3) .n{color:#E2634A}
+.avalues article::after{
+  content:"";position:absolute;left:24px;right:24px;top:0;height:1px;border-radius:1px;
+  background:currentColor;opacity:0;transform:scaleX(.3);transform-origin:left;
+  transition:opacity .28s, transform .28s cubic-bezier(.2,.7,.3,1);
+}
+.avalues article:hover{
+  transform:translateY(-4px);
+  border-color:rgba(233,235,242,.17);
+  background:rgba(12,16,24,.74);
+}
+.avalues article:hover::after{opacity:.85;transform:scaleX(1)}
+.avalues h3{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(16.5px,1.9vw,18.5px);line-height:1.3;letter-spacing:-.012em;
+  margin:0;color:#F4F6FB;
+}
+.avalues p{margin:0;font-size:clamp(14px,1.5vw,15px);line-height:1.7;color:#A8B1C4}
+.avalues .n{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--edge);display:flex;align-items:center;gap:9px;
+}
+.avalues .n i{display:block;width:16px;height:1px;background:currentColor;opacity:.55}
+.avalues .pin{
+  margin-top:auto;padding-top:14px;border-top:1px solid rgba(233,235,242,.08);
+  font-size:13.5px;line-height:1.6;font-weight:500;color:var(--edge);
+}
+.avalues article{color:var(--edge)}
+.avalues article:nth-child(2),
+.avalues article:nth-child(2) .n,
+.avalues article:nth-child(2) .pin{color:var(--evidence)}
+.avalues article:nth-child(3),
+.avalues article:nth-child(3) .n,
+.avalues article:nth-child(3) .pin{color:#E9714F}
+.avalues article:nth-child(2) h3,
+.avalues article:nth-child(3) h3{color:#F4F6FB}
+.avalues article:nth-child(2) p:not(.pin),
+.avalues article:nth-child(3) p:not(.pin){color:#A8B1C4}
+@media (prefers-reduced-motion:reduce){
+  .avalues article,.avalues article::after{transition:none}
+  .avalues article:hover{transform:none}
+}
 
 /* the three layers */
 .astack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
@@ -346,19 +383,22 @@ footer{
 
       <div class="avalues">
         <article class="card">
-          <p class="n">01</p>
+          <p class="n"><i></i>01 · Habit</p>
           <h3>I try hardest to prove myself wrong.</h3>
-          <p>I once built a rule for ranking web pages and wrote a whole explanation of why it was a good rule. Then I tested it, and it was barely better than guessing. I published the test, not the explanation.</p>
+          <p>I built a rule for ranking web pages, then wrote two pages explaining why it worked. Then I actually tested it. It was barely better than random. The explanation had been convincing me, not the data.</p>
+          <p class="pin">I deleted the two pages and published the test.</p>
         </article>
         <article class="card">
-          <p class="n">02</p>
+          <p class="n"><i></i>02 · Rule</p>
           <h3>A small honest number beats a big one.</h3>
-          <p>I said one part of my work made the results more trustworthy. When I actually measured it, the effect was about a fifth of what I'd claimed. So I corrected it.</p>
+          <p>I wrote that one step in my pipeline made the results far more trustworthy. Then I measured it properly. The real effect was about a fifth of what I'd claimed. The gap wasn't in the code — it was in what I'd assumed without checking.</p>
+          <p class="pin">Nobody would have checked. That's exactly why I changed it.</p>
         </article>
         <article class="card">
-          <p class="n">03</p>
+          <p class="n"><i></i>03 · Filter</p>
           <h3>No words that sound impressive and mean nothing.</h3>
-          <p>There are six I refuse to write: leveraged, cutting-edge, robust, enterprise-grade, empowers, seamless. If a sentence needs one of them, it isn't true yet.</p>
+          <p>Six words never appear in my writing: leveraged, cutting-edge, robust, enterprise-grade, empowers, seamless. They're what you reach for when you don't have a result yet.</p>
+          <p class="pin">If a sentence needs one, it isn't true yet — so I go make it true.</p>
         </article>
       </div>
 
