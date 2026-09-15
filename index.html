@@ -133,11 +133,6 @@ h1{
   .scrollcue{display:none}
 }
 
-/* ---------- the empty scroll ---------- */
-.drift{height:92svh;position:relative}
-.drift-b{height:74svh;position:relative}
-@media (max-width:760px){.drift{height:64svh}.drift-b{height:52svh}}
-
 /* ---------- section dividers ---------- */
 .sep{
   position:relative;height:1px;width:100%;
@@ -155,7 +150,7 @@ h1{
 }
 
 /* ---------- intro ---------- */
-.intro{position:relative;padding-block:clamp(56px,9vw,104px)}
+.intro{position:relative;padding-block:clamp(62px,9vw,112px)}
 .intro::before{
   content:"";position:absolute;inset:-14% -22%;z-index:-1;pointer-events:none;
   background:radial-gradient(58% 68% at 38% 50%, rgba(6,7,10,.90) 0%, rgba(6,7,10,.62) 46%, rgba(6,7,10,0) 78%);
@@ -274,8 +269,6 @@ footer{
    </div>
   </section>
 
-  <div class="drift" aria-hidden="true"></div>
-
   <div class="sep" aria-hidden="true"></div>
 
   <section class="intro" id="intro">
@@ -284,8 +277,6 @@ footer{
       <p class="ilede">I'm Saad. Final year, Software Engineering, Islamabad. I build <b>full-stack applications with AI inside them</b>, and I test them hardest where I most want them to be right.</p>
     </div>
   </section>
-
-  <div class="drift-b" aria-hidden="true"></div>
 
   <div class="sep" aria-hidden="true"></div>
 
