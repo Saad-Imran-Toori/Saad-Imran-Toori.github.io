@@ -134,13 +134,57 @@ h1{
 }
 
 /* ---------- the empty scroll ---------- */
-.drift{height:190svh;position:relative}
-@media (max-width:760px){.drift{height:150svh}}
+.drift{height:92svh;position:relative}
+.drift-b{height:74svh;position:relative}
+@media (max-width:760px){.drift{height:64svh}.drift-b{height:52svh}}
+
+/* ---------- section dividers ---------- */
+.sep{
+  position:relative;height:1px;width:100%;
+  background:linear-gradient(90deg,
+    rgba(127,168,255,0) 0%,
+    rgba(127,168,255,.14) 10%,
+    rgba(127,168,255,.34) 50%,
+    rgba(127,168,255,.14) 90%,
+    rgba(127,168,255,0) 100%);
+}
+.sep::after{
+  content:"";position:absolute;left:0;right:0;top:-2px;height:5px;pointer-events:none;
+  background:linear-gradient(90deg, transparent 12%, rgba(127,168,255,.14) 50%, transparent 88%);
+  filter:blur(4px);
+}
+
+/* ---------- intro ---------- */
+.intro{position:relative;padding-block:clamp(56px,9vw,104px)}
+.intro::before{
+  content:"";position:absolute;inset:-14% -22%;z-index:-1;pointer-events:none;
+  background:radial-gradient(58% 68% at 38% 50%, rgba(6,7,10,.90) 0%, rgba(6,7,10,.62) 46%, rgba(6,7,10,0) 78%);
+}
+.ilabel{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--edge);margin:0 0 20px;display:flex;align-items:center;gap:11px;
+}
+.ilabel s{display:block;width:26px;height:1px;background:var(--edge);text-decoration:none;opacity:.65}
+.ilede{
+  margin:0;max-width:52ch;
+  font-size:clamp(17px,2.15vw,23px);line-height:1.52;letter-spacing:-.011em;color:var(--text);
+}
+.ilede b{font-weight:500;color:#fff}
+.istatus{
+  display:flex;gap:10px 24px;flex-wrap:wrap;margin-top:30px;padding-top:20px;
+  border-top:1px solid var(--line);max-width:38rem;
+  font-family:var(--mono);font-size:11px;letter-spacing:.07em;color:var(--faint);
+}
+.istatus span{display:flex;align-items:center;gap:8px}
+.istatus u{
+  width:5px;height:5px;border-radius:50%;background:var(--evidence);display:block;
+  text-decoration:none;flex:none;
+  box-shadow:0 0 0 0 rgba(70,200,138,.5);animation:pulse 2.6s ease-out infinite;
+}
 
 /* ---------- footer ---------- */
 footer{
   position:relative;
-  border-top:1px solid var(--line);
   background:linear-gradient(to bottom, rgba(6,7,10,.72), rgba(6,7,10,.96));
   backdrop-filter:blur(10px);
   padding-block:clamp(44px,6vw,72px) 0;
@@ -233,6 +277,19 @@ footer{
 
   <div class="drift" aria-hidden="true"></div>
 
+  <div class="sep" aria-hidden="true"></div>
+
+  <section class="intro" id="intro">
+    <div class="wrap">
+      <p class="ilabel"><s></s>Intro</p>
+      <p class="ilede">I'm Saad. Final year, Software Engineering, Islamabad. I build <b>full-stack applications with AI inside them</b>, and I test them hardest where I most want them to be right.</p>
+    </div>
+  </section>
+
+  <div class="drift-b" aria-hidden="true"></div>
+
+  <div class="sep" aria-hidden="true"></div>
+
   <footer id="contact">
     <div class="wrap">
       <div class="fgrid">
@@ -240,7 +297,6 @@ footer{
         <div class="fbrand">
           <span class="fmark"><i></i><b>Muhammad Saad Imran</b></span>
           <p>Full-stack and AI developer in Islamabad, Pakistan. I build the retrieval layer, the API, and the interface that sits on top.</p>
-          <span class="avail"><u></u>Open to work from November 2026</span>
         </div>
 
         <div class="fcol">
