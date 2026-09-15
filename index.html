@@ -378,20 +378,20 @@ footer{
 /* the ways in — one button per real destination */
 .plinks{display:flex;flex-direction:column;gap:9px;min-width:212px}
 @media (max-width:760px){.plinks{flex-direction:row;flex-wrap:wrap;min-width:0;width:100%}}
-.plinks a{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
+.plinks a,.plinks button{
+  display:flex;width:100%;font-family:var(--mono);cursor:pointer;align-items:center;justify-content:space-between;gap:14px;
   font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;
   text-decoration:none;padding:11px 14px;border-radius:7px;
   border:1px solid rgba(233,235,242,.16);color:var(--text);
   transition:border-color .2s,color .2s,background .2s;
 }
-.plinks a .g{color:var(--faint);font-size:12px;transition:transform .24s cubic-bezier(.2,.7,.3,1),color .2s}
-.plinks a:hover{border-color:var(--accent);color:var(--accent);background:rgba(233,235,242,.035)}
-.plinks a:hover .g{color:var(--accent);transform:translate(3px,-3px)}
-.plinks a.lead{background:var(--text);color:var(--void);border-color:var(--text);font-weight:600}
-.plinks a.lead .g{color:rgba(6,7,10,.6)}
-.plinks a.lead:hover{background:var(--accent);border-color:var(--accent);color:var(--void)}
-.plinks a.lead:hover .g{color:rgba(6,7,10,.7)}
+.plinks a .g,.plinks button .g{color:var(--faint);font-size:12px;transition:transform .24s cubic-bezier(.2,.7,.3,1),color .2s}
+.plinks a:hover,.plinks button:hover{border-color:var(--accent);color:var(--accent);background:rgba(233,235,242,.035)}
+.plinks a:hover .g,.plinks button:hover .g{color:var(--accent);transform:translate(3px,-3px)}
+.plinks a.lead,.plinks button.lead{background:var(--text);color:var(--void);border-color:var(--text);font-weight:600}
+.plinks a.lead .g,.plinks button.lead .g{color:rgba(6,7,10,.6)}
+.plinks a.lead:hover,.plinks button.lead:hover{background:var(--accent);border-color:var(--accent);color:var(--void)}
+.plinks a.lead:hover .g,.plinks button.lead:hover .g{color:rgba(6,7,10,.7)}
 .plinks .none{
   font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
   color:var(--faint);padding:11px 2px;line-height:1.6;text-align:right;
@@ -456,6 +456,65 @@ footer{
 .also li b{display:block;color:#E9EBF2;font-weight:500;margin-bottom:3px}
 .also li b a{color:inherit;text-decoration:none;transition:color .2s}
 .also li b a:hover{color:var(--edge)}
+
+/* ---------- the walkthrough viewer ---------- */
+.pv{
+  position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
+  padding:clamp(12px,2.4vw,34px);
+  background:rgba(4,5,8,.86);backdrop-filter:blur(7px);
+  opacity:0;transition:opacity .22s;
+}
+.pv.on{opacity:1}
+.pvbox{
+  width:min(1080px,100%);max-height:100%;display:flex;flex-direction:column;
+  border:1px solid rgba(233,235,242,.14);border-radius:16px;overflow:hidden;
+  background:#0A0D15;box-shadow:0 40px 110px -40px rgba(0,0,0,1);
+  transform:translateY(10px) scale(.99);transition:transform .26s cubic-bezier(.2,.7,.3,1);
+}
+.pv.on .pvbox{transform:none}
+.pvhead{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px clamp(16px,2vw,22px);border-bottom:1px solid rgba(233,235,242,.10);flex:none;
+}
+.pvk{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--edge);margin:0 0 5px;
+}
+.pvt{font-family:var(--display);font-weight:700;font-size:clamp(17px,2.2vw,21px);letter-spacing:-.02em;margin:0;color:#F4F6FB}
+.pvx{
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text);background:none;border:1px solid rgba(233,235,242,.16);border-radius:6px;
+  padding:9px 13px;cursor:pointer;transition:border-color .2s,color .2s;flex:none;
+}
+.pvx:hover{border-color:var(--edge);color:var(--edge)}
+.pvstage{
+  position:relative;flex:1;min-height:0;background:#06070A;
+  display:flex;align-items:center;justify-content:center;
+}
+.pvstage img,.pvstage video{display:block;width:100%;height:100%;max-height:62vh;object-fit:contain;background:#06070A}
+.pvfoot{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(12px,2vw,22px);align-items:center;
+  padding:15px clamp(16px,2vw,22px);border-top:1px solid rgba(233,235,242,.10);flex:none;
+}
+@media (max-width:640px){
+  .pvfoot{grid-template-columns:auto auto;grid-template-areas:"cap cap" "back next";justify-items:stretch}
+  .pvcapwrap{grid-area:cap}.pvb[data-d="-1"]{grid-area:back}.pvb[data-d="1"]{grid-area:next}
+}
+.pvcap{margin:0;font-size:14.5px;line-height:1.6;color:#A8B1C4;text-align:center}
+.pvcap b{color:#E9EBF2;font-weight:500}
+.pvstep{
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);text-align:center;margin:0 0 6px;
+}
+.pvb{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--text);background:none;border:1px solid rgba(233,235,242,.16);border-radius:7px;
+  padding:11px 16px;cursor:pointer;transition:border-color .2s,color .2s,opacity .2s;flex:none;
+}
+.pvb:hover:not(:disabled){border-color:var(--edge);color:var(--edge)}
+.pvb:disabled{opacity:.32;cursor:default}
+body.pvlock{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.pv,.pvbox{transition:none}}
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -562,7 +621,7 @@ footer{
             <p class="psub">A place to publish a browser game and watch whether anyone plays it &mdash; discovery, in-page play, ratings and per-game analytics, with a publishing pipeline developers actually use.</p>
             <div class="pstack"><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span><span>Google OAuth</span><span>Cloudflare R2</span><span>Vanilla ES6</span></div>
           </div>
-          <div class="plinks"><a class="lead" href="https://bongupid.games" target="_blank" rel="noopener">Visit the live site<span class="g" aria-hidden="true">&#8599;</span></a><span class="none">Source private &mdash; client build</span></div>
+          <div class="plinks" data-links="bongupid"><a href="https://bongupid.games" target="_blank" rel="noopener">Visit the live site<span class="g" aria-hidden="true">&#8599;</span></a><span class="none">Source private &mdash; client build</span></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">bongupid.games &mdash; live now</p>
@@ -578,7 +637,7 @@ footer{
             <p class="psub">An AI system that reads a tender, finds every requirement in it, and checks each one against what the company has genuinely delivered before &mdash; then tells you whether to bid.</p>
             <div class="pstack"><span>React 19</span><span>Vite</span><span>FastAPI</span><span>ChromaDB</span><span>Sentence Transformers</span><span>Claude API</span><span>Ollama</span></div>
           </div>
-          <div class="plinks"><a class="lead" href="https://github.com/Saad-Imran-Toori/DecisAI" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
+          <div class="plinks" data-links="decisai"><a href="https://github.com/Saad-Imran-Toori/DecisAI" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">Screenshot to follow</p>
@@ -594,7 +653,7 @@ footer{
             <p class="psub">One desktop workspace for a small game studio &mdash; projects, phases, a drag-and-drop board, an asset library, a bug tracker and a report generator, all kept in step with each other.</p>
             <div class="pstack"><span>Java 21</span><span>JavaFX</span><span>Maven</span><span>MySQL</span><span>JasperReports</span><span>JUnit 5</span></div>
           </div>
-          <div class="plinks"><a class="lead" href="https://github.com/Saad-Imran-Toori/AssetForge-Studio" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
+          <div class="plinks" data-links="assetforge"><a href="https://github.com/Saad-Imran-Toori/AssetForge-Studio" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
       <div class="pshot card empty">
         <p class="pwait">Screenshot to follow</p>
@@ -667,6 +726,132 @@ footer{
   </footer>
 
 </div>
+
+<div class="pv" id="pv" hidden>
+  <div class="pvbox" role="dialog" aria-modal="true" aria-labelledby="pvt">
+    <div class="pvhead">
+      <div>
+        <p class="pvk">Walkthrough</p>
+        <h4 class="pvt" id="pvt"></h4>
+      </div>
+      <button class="pvx" type="button" id="pvx">Close &#10005;</button>
+    </div>
+    <div class="pvstage" id="pvstage"></div>
+    <div class="pvfoot">
+      <button class="pvb" type="button" data-d="-1">&larr; Back</button>
+      <div class="pvcapwrap">
+        <p class="pvstep" id="pvstep"></p>
+        <p class="pvcap" id="pvcap"></p>
+      </div>
+      <button class="pvb" type="button" data-d="1">Next &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Walkthrough viewer. Each project lists its frames; a project with no frames
+   simply has no preview button, so nothing half-finished ever renders. */
+(function(){
+  var ph = function(t,n){
+    return "data:image/svg+xml;utf8," + encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>"+
+      "<rect width='1600' height='900' fill='#0B0E17'/>"+
+      "<rect x='40' y='40' width='1520' height='820' rx='14' fill='none' stroke='#222A3A' stroke-dasharray='10 8'/>"+
+      "<text x='800' y='430' fill='#7FA8FF' font-family='monospace' font-size='34' letter-spacing='6' text-anchor='middle'>"+t+"</text>"+
+      "<text x='800' y='492' fill='#5D6678' font-family='monospace' font-size='23' letter-spacing='3' text-anchor='middle'>"+n+"</text></svg>");
+  };
+
+  var SHOWS = {
+    bongupid: { title:"Bongupid Games", frames:[
+      {src:ph("PLACEHOLDER FRAME 1","The home page with the game grid"),
+       cap:"<b>Discovery.</b> Every published build, sorted into arcade, puzzle and racing, with ratings and a search that runs as you type."},
+      {src:ph("PLACEHOLDER FRAME 2","A game page, playing in the browser"),
+       cap:"<b>Play in the page.</b> The build runs where it sits \u2014 no download, no plugin \u2014 with ratings and reviews underneath."},
+      {src:ph("PLACEHOLDER FRAME 3","The publishing flow"),
+       cap:"<b>Publishing.</b> A developer uploads a ZIP; it is validated, extracted into a playable route, and given cover art, visibility controls and its own analytics."}
+    ]},
+    decisai: { title:"DecisAI", frames:[
+      {src:ph("PLACEHOLDER FRAME 1","Upload and extraction"),
+       cap:"<b>The tender goes in.</b> 500 pages, and every requirement inside it is pulled out and listed."},
+      {src:ph("PLACEHOLDER FRAME 2","Evidence matching"),
+       cap:"<b>Each requirement meets the record.</b> Scored evidence from real past delivery \u2014 or an explicit <b>no capability match</b>, never a plausible guess."},
+      {src:ph("PLACEHOLDER FRAME 3","The GO / NO-GO decision"),
+       cap:"<b>The call.</b> A win score, the gaps that would sink it, and an export to DOCX or PDF."}
+    ]},
+    assetforge: { title:"AssetForge Studio", frames:[
+      {src:ph("PLACEHOLDER FRAME 1","The dashboard"),
+       cap:"<b>One place.</b> Projects, phases, open bugs and asset health, all on the first screen."},
+      {src:ph("PLACEHOLDER FRAME 2","The drag-and-drop board"),
+       cap:"<b>The board.</b> Move a task and every other view updates with it \u2014 an event bus keeps phases, bugs and the dashboard in step."},
+      {src:ph("PLACEHOLDER FRAME 3","The asset library"),
+       cap:"<b>The part Jira ignores.</b> Checksums on every asset, so duplicates and missing files surface before anyone ships them."}
+    ]}
+  };
+
+  var box=document.getElementById('pv'); if(!box) return;
+  var stage=document.getElementById('pvstage'), cap=document.getElementById('pvcap'),
+      step=document.getElementById('pvstep'), ttl=document.getElementById('pvt'),
+      back=box.querySelector('[data-d="-1"]'), next=box.querySelector('[data-d="1"]');
+  var show=null, at=0, opener=null;
+
+  function paint(){
+    var f=show.frames[at];
+    stage.innerHTML='';
+    var el;
+    if(/\.(mp4|webm)$/i.test(f.src)){
+      el=document.createElement('video');
+      el.src=f.src; el.controls=true; el.autoplay=true; el.muted=true; el.playsInline=true; el.loop=true;
+    } else {
+      el=document.createElement('img'); el.src=f.src;
+    }
+    el.alt=f.alt||'';
+    stage.appendChild(el);
+    cap.innerHTML=f.cap;
+    step.textContent='Step '+(at+1)+' of '+show.frames.length;
+    back.disabled=at===0; next.disabled=at===show.frames.length-1;
+  }
+  function move(d){
+    var n=at+d; if(n<0||n>=show.frames.length) return; at=n; paint();
+  }
+  function open(key,btn){
+    show=SHOWS[key]; if(!show) return;
+    at=0; opener=btn||null; ttl.textContent=show.title; paint();
+    box.hidden=false; document.body.classList.add('pvlock');
+    requestAnimationFrame(function(){box.classList.add('on')});
+    document.getElementById('pvx').focus();
+  }
+  function close(){
+    box.classList.remove('on');
+    setTimeout(function(){ box.hidden=true; stage.innerHTML=''; }, 200);
+    document.body.classList.remove('pvlock');
+    if(opener) opener.focus();
+  }
+
+  document.addEventListener('click', function(e){
+    var t=e.target.closest('[data-preview]');
+    if(t){ e.preventDefault(); open(t.getAttribute('data-preview'), t); return; }
+    if(e.target.closest('[data-d]')){ move(+e.target.closest('[data-d]').getAttribute('data-d')); return; }
+    if(e.target===box || e.target.id==='pvx'){ close(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(box.hidden) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowRight') move(1);
+    else if(e.key==='ArrowLeft') move(-1);
+  });
+
+  /* only show a preview button where frames actually exist */
+  Object.keys(SHOWS).forEach(function(k){
+    var host=document.querySelector('[data-links="'+k+'"]');
+    if(!host || !SHOWS[k].frames.length) return;
+    var b=document.createElement('button');
+    b.type='button'; b.className='lead'; b.setAttribute('data-preview',k);
+    b.innerHTML='Preview the project<span class="g" aria-hidden="true">&#9654;</span>';
+    host.insertBefore(b, host.firstChild);
+  });
+})();
+</script>
+
 
 <script>
 // the video plays, always
