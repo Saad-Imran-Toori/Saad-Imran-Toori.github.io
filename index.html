@@ -36,7 +36,7 @@
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{
   margin:0;
   background:var(--void);
@@ -652,6 +652,7 @@ footer{
 @media (prefers-reduced-motion:reduce){.tways a:hover{transform:none}}
 
 /* ---------- the walkthrough viewer ---------- */
+[hidden]{display:none!important}
 .pv{
   position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
   padding:clamp(12px,2.4vw,34px);
