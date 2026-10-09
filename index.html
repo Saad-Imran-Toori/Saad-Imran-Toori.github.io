@@ -539,6 +539,78 @@ footer{
 }
 .seeit:hover{background:rgba(127,168,255,.10);border-color:var(--edge)}
 
+/* ---------- education & certifications ---------- */
+.edu{position:relative;padding-block:clamp(62px,9vw,110px)}
+.edu::before{
+  content:"";position:absolute;inset:-6% -20%;z-index:-1;pointer-events:none;
+  background:radial-gradient(70% 62% at 50% 50%, rgba(6,7,10,.90) 0%, rgba(6,7,10,.66) 52%, rgba(6,7,10,0) 82%);
+}
+
+/* the degree */
+.degree{--accent:var(--edge);padding:clamp(22px,2.6vw,30px);display:flex;flex-direction:column;gap:15px}
+.dtop{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:start}
+@media (max-width:680px){.dtop{grid-template-columns:minmax(0,1fr)}}
+.dtitle{
+  font-family:var(--display);font-weight:700;letter-spacing:-.022em;margin:0;color:#F4F6FB;
+  font-size:clamp(19px,2.4vw,25px);line-height:1.18;
+}
+.dorg{margin:7px 0 0;font-size:15px;color:#A8B1C4}
+.dorg b{color:var(--accent);font-weight:500}
+.dwhen{
+  font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent);border:1px solid rgba(127,168,255,.3);border-radius:999px;padding:7px 13px;white-space:nowrap;
+}
+.dcourse{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.dchips{display:flex;flex-wrap:wrap;gap:7px}
+.dchips span{
+  font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--muted);
+  border:1px solid rgba(233,235,242,.12);border-radius:5px;padding:6px 10px;
+}
+
+/* the certificates */
+.csub{
+  margin:clamp(30px,3.6vw,44px) 0 16px;font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--faint);
+}
+.certs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.certs{grid-template-columns:minmax(0,1fr)}}
+.cert{
+  --accent:var(--edge);
+  padding:22px 22px 24px;display:flex;flex-direction:column;gap:13px;
+  transition:border-color .24s,background .24s;
+}
+.cert:hover{border-color:rgba(233,235,242,.16);background:rgba(12,16,24,.72)}
+.cert:nth-child(1){--accent:var(--evidence)}
+.chead{display:flex;align-items:flex-start;gap:14px}
+.cmark{
+  flex:none;width:42px;height:42px;border-radius:9px;display:grid;place-items:center;
+  border:1px solid rgba(233,235,242,.14);background:rgba(233,235,242,.035);
+  font-family:var(--display);font-weight:700;font-size:16px;color:var(--accent);letter-spacing:-.02em;
+}
+.cissuer{
+  margin:0 0 4px;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);
+}
+.cname{font-family:var(--display);font-weight:600;font-size:16.5px;line-height:1.32;letter-spacing:-.012em;margin:0;color:#F4F6FB}
+.cbody{margin:0;font-size:14.3px;line-height:1.65;color:#A8B1C4}
+.cmeta{
+  margin:0;padding-top:12px;border-top:1px solid rgba(233,235,242,.08);
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--faint);
+}
+.cmeta b{color:var(--muted);font-weight:400}
+.cacts{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto;padding-top:4px}
+.cacts:empty{display:none}
+.cacts a,.cacts button{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;
+  text-decoration:none;padding:9px 13px;border-radius:6px;cursor:pointer;
+  border:1px solid rgba(233,235,242,.16);background:none;color:var(--text);
+  transition:border-color .2s,color .2s,background .2s;
+}
+.cacts a .g,.cacts button .g{color:var(--faint);font-size:11px;transition:transform .24s cubic-bezier(.2,.7,.3,1),color .2s}
+.cacts a:hover,.cacts button:hover{border-color:var(--accent);color:var(--accent);background:rgba(233,235,242,.035)}
+.cacts a:hover .g,.cacts button:hover .g{color:var(--accent);transform:translate(2px,-2px)}
+
 /* ---------- the walkthrough viewer ---------- */
 .pv{
   position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;
@@ -757,7 +829,8 @@ body.pvlock{overflow:hidden}
           </div>
           <div class="plinks" data-links="bongupid"><a href="https://bongupid.games" target="_blank" rel="noopener">Visit the live site<span class="g" aria-hidden="true">&#8599;</span></a><span class="none">Source private &mdash; client build</span></div>
         </div>
-      <div class="pshot card empty">
+      <div class="pshot card">
+        <img src="work/bongupid-2.webp" alt="The Bongupid Games search results page" loading="lazy" decoding="async">
         <p class="pwait">bongupid.games &mdash; live now</p>
         <div class="pnums"><div><b>15</b><span>Published builds</span></div><div><b>11</b><span>Active users at submission</span></div><div><b>2,451</b><span>Lines of framework-free JavaScript</span></div></div>
       </div>
@@ -773,8 +846,8 @@ body.pvlock{overflow:hidden}
           </div>
           <div class="plinks" data-links="decisai"><a href="https://github.com/Saad-Imran-Toori/DecisAI" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
-      <div class="pshot card empty">
-        <p class="pwait">Screenshot to follow</p>
+      <div class="pshot card">
+        <img src="work/decisai-9.webp" alt="The DecisAI GO / NO-GO decision screen" loading="lazy" decoding="async">
         <div class="pnums"><div><b>500</b><span>Page tender, read end to end</span></div><div><b>91</b><span>Requirements extracted</span></div><div><b>94%</b><span>Extraction confidence</span></div></div>
       </div>
         <dl class="pfacts"><div><dt>Problem</dt><dd>Answering a tender means checking about ninety requirements against what a company has genuinely delivered before. Most answers are guesses, and guesses read well.</dd></div><div><dt>My role</dt><dd>Built it end to end &mdash; a React front end over a FastAPI backend of eleven documented endpoints, and the retrieval layer that matches each requirement against the real delivery record and returns scored evidence rather than prose.</dd></div><div><dt>Result</dt><dd>It answers <b>&ldquo;no capability match&rdquo;</b> instead of drafting something plausible, and falls back from the Claude API to local Ollama to a plain template &mdash; so it degrades instead of failing, and client documents never have to leave the network.</dd></div></dl>
@@ -789,8 +862,8 @@ body.pvlock{overflow:hidden}
           </div>
           <div class="plinks" data-links="assetforge"><a href="https://github.com/Saad-Imran-Toori/AssetForge-Studio" target="_blank" rel="noopener">Source on GitHub<span class="g" aria-hidden="true">&#8599;</span></a></div>
         </div>
-      <div class="pshot card empty">
-        <p class="pwait">Screenshot to follow</p>
+      <div class="pshot card">
+        <img src="work/assetforge-1.webp" alt="The AssetForge Studio dashboard" loading="lazy" decoding="async">
         <div class="pnums"><div><b>7</b><span>Modules in one application</span></div><div><b>100</b><span>Source files</span></div><div><b>1</b><span>Command to clone and run</span></div></div>
       </div>
         <dl class="pfacts"><div><dt>Problem</dt><dd>A small studio tracks its assets, bugs, phases and tasks across four separate tools that know nothing about each other.</dd></div><div><dt>My role</dt><dd>Seven modules on layered MVC with separate service and data tiers, an event bus keeping every view in step, and checksums that catch duplicate or missing files.</dd></div><div><dt>Result</dt><dd>Clones and runs on <b>one command</b> against an in-memory database, so anyone can try it without setting anything up. Four themes, one of them a high-contrast palette meeting WCAG 2.2 AA.</dd></div></dl>
@@ -819,6 +892,89 @@ body.pvlock{overflow:hidden}
       </div>
     </div>
   </section>
+  <div class="sep" aria-hidden="true"></div>
+
+  <section class="edu" id="education">
+    <div class="wrap">
+      <p class="ilabel"><s></s>Education &amp; certifications</p>
+
+      <article class="degree card">
+        <div class="dtop">
+          <div>
+            <h3 class="dtitle">BS Software Engineering</h3>
+            <p class="dorg"><b>Capital University of Science &amp; Technology</b> &nbsp;&middot;&nbsp; Islamabad, Pakistan</p>
+          </div>
+          <span class="dwhen">Final year &middot; 2027</span>
+        </div>
+        <p class="dcourse">Coursework that shows up in the work above</p>
+        <div class="dchips">
+          <span>Artificial Intelligence</span><span>Web Engineering</span><span>Software Design &amp; Architecture</span>
+          <span>Software Construction &amp; Development</span><span>Database Systems</span><span>Automated Software Testing</span>
+        </div>
+      </article>
+
+      <p class="csub">Certifications</p>
+
+      <div class="certs">
+
+        <article class="cert card" data-cert="flyrank">
+          <div class="chead">
+            <span class="cmark" aria-hidden="true">FR</span>
+            <div>
+              <p class="cissuer">FlyRank AI</p>
+              <h3 class="cname">Machine Learning Internship &mdash; Certificate of Completion</h3>
+            </div>
+          </div>
+          <p class="cbody">Two months, full time. Machine learning track completed at 10 / 10, with the capstone reviewed and accepted by the lead track mentor. Issued with a recommendation letter from the Founder &amp; CEO.</p>
+          <p class="cmeta">Issued September 2026<br>Credential <b>FR-D11-F1DDA-CDAA7</b></p>
+          <div class="cacts">
+            <a href="https://internship.flyrank.ai/verify/FR-D11-F1DDA-CDAA7?first_name=Muhammad" target="_blank" rel="noopener">Verify it<span class="g" aria-hidden="true">&#8599;</span></a>
+          </div>
+        </article>
+
+        <article class="cert card" data-cert="anthropic">
+          <div class="chead">
+            <span class="cmark" aria-hidden="true">AA</span>
+            <div>
+              <p class="cissuer">Anthropic Academy</p>
+              <h3 class="cname">Six courses in AI fluency and agent design</h3>
+            </div>
+          </div>
+          <p class="cbody">Including <em>AI Fluency: Framework &amp; Foundations</em> and <em>Introduction to Agent Skills</em> &mdash; the material behind how the agent work on this page is built.</p>
+          <p class="cmeta">Completed July &ndash; August 2026</p>
+          <div class="cacts"></div>
+        </article>
+
+        <article class="cert card" data-cert="google">
+          <div class="chead">
+            <span class="cmark" aria-hidden="true">G</span>
+            <div>
+              <p class="cissuer">Google &middot; Coursera</p>
+              <h3 class="cname">AI Essentials and Prompting Essentials</h3>
+            </div>
+          </div>
+          <p class="cbody">Both specializations in full, plus six further courses in applied AI.</p>
+          <p class="cmeta">Completed July &ndash; August 2026</p>
+          <div class="cacts"></div>
+        </article>
+
+        <article class="cert card" data-cert="atlassian">
+          <div class="chead">
+            <span class="cmark" aria-hidden="true">AJ</span>
+            <div>
+              <p class="cissuer">Atlassian &middot; Coursera</p>
+              <h3 class="cname">Agile with Atlassian Jira</h3>
+            </div>
+          </div>
+          <p class="cbody">Sprint planning, backlogs and boards &mdash; the process side of shipping, rather than the code.</p>
+          <p class="cmeta">Completed July 2026</p>
+          <div class="cacts"></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
   <div class="sep" aria-hidden="true"></div>
 
   <footer id="contact">
@@ -916,6 +1072,10 @@ body.pvlock{overflow:hidden}
       {src:"work/bongupid-9.webp", alt:"The platform analytics dashboard",
        cap:"<b>Platform analytics.</b> User growth, most-played titles, and where the traffic actually comes from \u2014 by country and city."}
     ]},
+    "cert-flyrank":   { title:"FlyRank AI \u2014 Certificate of Completion", kind:"cert", frames:[] },
+    "cert-anthropic": { title:"Anthropic Academy \u2014 Certificates", kind:"cert", frames:[] },
+    "cert-google":    { title:"Google \u2014 Certificates", kind:"cert", frames:[] },
+    "cert-atlassian": { title:"Agile with Atlassian Jira", kind:"cert", frames:[] },
     decisai: { title:"DecisAI", frames:[
       {src:"work/decisai-1.webp", alt:"The DecisAI workspace",
        cap:"<b>The workspace.</b> Live bids, deadlines, average compliance and win probability \u2014 with every opportunity carrying the model's own GO or NO-GO against it."},
@@ -986,8 +1146,11 @@ body.pvlock{overflow:hidden}
     }
     el.alt=f.alt||'';
     stage.appendChild(el);
-    cap.innerHTML=f.cap;
-    step.textContent='Step '+(at+1)+' of '+show.frames.length;
+    cap.innerHTML=f.cap||'';
+    var many=show.frames.length>1;
+    step.textContent = many ? 'Step '+(at+1)+' of '+show.frames.length : '';
+    step.hidden=!many; back.hidden=!many; next.hidden=!many;
+    cap.hidden=!f.cap;
     back.disabled=at===0; next.disabled=at===show.frames.length-1;
   }
   function move(d){
@@ -995,7 +1158,9 @@ body.pvlock{overflow:hidden}
   }
   function open(key,btn){
     show=SHOWS[key]; if(!show) return;
-    at=0; opener=btn||null; ttl.textContent=show.title; paint();
+    at=0; opener=btn||null; ttl.textContent=show.title;
+    document.querySelector('.pvk').textContent = show.kind==='cert' ? 'Certificate' : 'Walkthrough';
+    paint();
     box.hidden=false; document.body.classList.add('pvlock');
     requestAnimationFrame(function(){box.classList.add('on')});
     document.getElementById('pvx').focus();
@@ -1018,6 +1183,17 @@ body.pvlock{overflow:hidden}
     if(e.key==='Escape') close();
     else if(e.key==='ArrowRight') move(1);
     else if(e.key==='ArrowLeft') move(-1);
+  });
+
+  /* certificates: the button appears only once its image is in place */
+  document.querySelectorAll('[data-cert]').forEach(function(card){
+    var key='cert-'+card.getAttribute('data-cert');
+    var sh=SHOWS[key]; if(!sh || !sh.frames.length) return;
+    var acts=card.querySelector('.cacts'); if(!acts) return;
+    var b=document.createElement('button');
+    b.type='button'; b.setAttribute('data-preview',key);
+    b.innerHTML='View the certificate<span class="g" aria-hidden="true">&#9654;</span>';
+    acts.insertBefore(b, acts.firstChild);
   });
 
   /* only show a preview button where frames actually exist */
