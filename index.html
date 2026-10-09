@@ -852,13 +852,13 @@ body.pvlock{overflow:hidden}
             <div class="xstack"><span>Python</span><span>DuckDB over cloud Parquet</span><span>scikit-learn</span><span>pandas</span><span>GitHub Actions CI</span></div>
 
             <div class="xnums">
-              <div><b>81M</b><span>Row search warehouse,<br>queried where it sat</span></div>
+              <div><b>40,152</b><span>Pages studied,<br>across 24 clients</span></div>
               <div><b>0.784</b><span>Precision@50,<br>up from 0.492</span></div>
               <div><b>0.037</b><span>The honest R&sup2;, after<br>I removed the leak</span></div>
             </div>
 
             <ul class="xbeats">
-              <li><b>What I built.</b> A model that ranks web pages for search, trained on an 81-million-row warehouse sitting in cloud storage. It was far too big for my laptop, so I queried it where it was instead of downloading it. Precision@50 went from 0.492 to 0.784 against a 0.216 base rate &mdash; measured on a split that keeps each client&rsquo;s data together and never lets the model see the future.</li>
+              <li><b>What I built.</b> A model that ranks web pages for search. The warehouse was far too big for my laptop, so I queried it where it sat rather than downloading it: 203,074 pages seen, narrowed to a study population of <b>40,152 pages across 24 clients</b>. Precision@50 went from 0.492 to 0.784 against a 0.216 base rate &mdash; measured on a split that keeps each client&rsquo;s data together and never lets the model see the future.</li>
               <li><b>What I reported beside it.</b> Roughly half of that gain rides on click history, which is easy to overstate. I also ran a deliberate leakage test: leave one contaminating column in and R&sup2; reads a flattering 0.874. Take it out and the honest figure is 0.037. I took it out and published the small number.</li>
               <li><b>What I corrected.</b> I had made a claim about the validation split in my own write-up. When I checked it properly it was inflated, so I replaced it with the smaller, correct one.</li>
               <li><b>What I shipped at the end.</b> The capstone &mdash; <em>Google Search Ranking &amp; Discoverability</em> &mdash; as a self-contained research paper, audited against the Pineau reproducibility checklist &mdash; and arguing against its own headline wherever the evidence pointed that way.</li>
