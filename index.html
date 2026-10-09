@@ -488,9 +488,17 @@ footer{
 /* the numbers, which sit on the picture once there is one */
 .pnums{
   position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,58px);
-  padding:clamp(20px,2.6vw,30px);
-  background:linear-gradient(to top, rgba(6,7,10,.92), rgba(6,7,10,.55) 60%, rgba(6,7,10,0));
+  padding:clamp(44px,5vw,64px) clamp(20px,2.6vw,30px) clamp(20px,2.6vw,30px);
+  /* the strip must stay legible over a bright screenshot, not just a dark one */
+  background:linear-gradient(to top,
+    rgba(6,7,10,.985) 0%, rgba(6,7,10,.965) 46%, rgba(6,7,10,.86) 72%, rgba(6,7,10,0) 100%);
+  -webkit-backdrop-filter:blur(8px) saturate(.45);
+  backdrop-filter:blur(8px) saturate(.45);
+  -webkit-mask-image:linear-gradient(to top, #000 72%, rgba(0,0,0,.35) 90%, transparent 100%);
+  mask-image:linear-gradient(to top, #000 72%, rgba(0,0,0,.35) 90%, transparent 100%);
 }
+.pshot.empty .pnums{padding-top:clamp(20px,2.6vw,30px);-webkit-backdrop-filter:none;backdrop-filter:none;
+  -webkit-mask-image:none;mask-image:none}
 .pnums div{display:flex;flex-direction:column;gap:4px}
 .pnums b{
   font-family:var(--display);font-weight:700;color:var(--accent);
