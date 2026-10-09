@@ -701,6 +701,8 @@ footer{
   display:block;max-width:min(100%,920px);width:auto;height:auto;flex:none;
   border-radius:8px;box-shadow:0 18px 50px -28px rgba(0,0,0,1);
 }
+/* a tall screen recording is capped so the whole phone stays in view */
+.pvstage video{max-height:min(58vh,640px);background:#06070A}
 .pvfoot{
   display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(12px,2vw,22px);align-items:center;
   padding:15px clamp(16px,2vw,22px);border-top:1px solid rgba(233,235,242,.10);flex:none;
@@ -935,7 +937,7 @@ body.pvlock{overflow:hidden}
         <h3>Also built</h3>
         <ul>
           <li><b><a href="https://github.com/Saad-Imran-Toori/automated-testing-ecommerce-admin-panel" target="_blank" rel="noopener">Automated test framework &#8599;</a></b>A multi-layer suite for an e-commerce admin panel &mdash; Selenium WebDriver and Grid in Docker, JUnit 5, PHPUnit and Postman.</li>
-          <li><b>Bus-booking application</b>A complete two-role product designed in Figma across 25+ linked screens for an external client.</li>
+          <li><b>Bus-booking application</b>A complete two-role product designed in Figma across 25+ linked screens for an external client. <button type="button" class="seeit" data-preview="bus">See it &#9654;</button></li>
           <li><b><a href="https://github.com/Saad-Imran-Toori/Tic-Tac-Toe-AI-Minimax" target="_blank" rel="noopener">Unbeatable Tic-Tac-Toe &#8599;</a></b>Minimax with depth-based evaluation, drawn entirely from Pygame primitives. <button type="button" class="seeit" data-preview="tictac">See it &#9654;</button></li>
         </ul>
       </div>
@@ -1241,6 +1243,10 @@ body.pvlock{overflow:hidden}
       {src:"work/decisai-9.webp", alt:"The GO / NO-GO decision",
        cap:"<b>The call.</b> Conditional GO on a 61.4 win probability, 52% compliance and your own 58% historical rate in that sector \u2014 with the strengths, the risks and what to fix, before you commit."}
     ]},
+    bus: { title:"Al Makkah Travels \u2014 booking prototype", frames:[
+      {src:"work/bus-prototype.mp4", poster:"work/bus-poster.webp", alt:"A click-through of the bus booking prototype",
+       cap:"<b>The whole booking flow, clicked through.</b> Search a journey, pick a seat from a live map that marks which are taken and by whom, pay through EasyPaisa or JazzCash and upload the receipt, then manage bookings, refunds, travel history and your profile afterwards. 25+ linked screens, designed in Figma for an external client."}
+    ]},
     tictac: { title:"Tic-Tac-Toe \u2014 Minimax AI", frames:[
       {src:"work/tictac-1.webp", alt:"A fresh board",
        cap:"<b>Your move.</b> Drawn entirely from Pygame primitives \u2014 the wood, the carved grid, the highlight under your cursor. No image assets at all."},
@@ -1286,6 +1292,7 @@ body.pvlock{overflow:hidden}
     if(/\.(mp4|webm)$/i.test(f.src)){
       el=document.createElement('video');
       el.src=f.src; el.controls=true; el.autoplay=true; el.muted=true; el.playsInline=true; el.loop=true;
+      el.preload='metadata'; if(f.poster) el.poster=f.poster;
     } else {
       el=document.createElement('img'); el.src=f.src;
     }
