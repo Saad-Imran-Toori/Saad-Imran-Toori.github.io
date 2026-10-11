@@ -702,16 +702,21 @@ footer{
 }
 .pvx:hover{border-color:var(--edge);color:var(--edge)}
 .pvstage{
-  position:relative;flex:1;min-height:0;max-height:64vh;background:#06070A;overflow:auto;
-  display:flex;align-items:flex-start;justify-content:center;padding:clamp(12px,1.8vw,20px);
+  position:relative;flex:1;min-height:0;max-height:72vh;background:#06070A;overflow:auto;
+  display:flex;align-items:center;justify-content:center;padding:clamp(12px,1.8vw,20px);
   scrollbar-width:thin;scrollbar-color:#2A3343 transparent;
 }
 .pvstage::-webkit-scrollbar{width:9px}
 .pvstage::-webkit-scrollbar-thumb{background:#2A3343;border-radius:5px}
 .pvstage img,.pvstage video{
-  display:block;max-width:min(100%,920px);width:auto;height:auto;flex:none;
-  border-radius:8px;box-shadow:0 18px 50px -28px rgba(0,0,0,1);
+  display:block;flex:none;border-radius:8px;box-shadow:0 18px 50px -28px rgba(0,0,0,1);
+  /* every frame carries 2x pixels, so capping both ways always downsamples — never blurs up */
+  max-width:min(100%,1060px);max-height:66vh;width:auto;height:auto;object-fit:contain;
 }
+/* a full-page capture is taller than the stage: show it wide and let it scroll,
+   rather than shrinking the whole page down to thumbnail size */
+.pvstage img.tall{max-height:none}
+.pvstage.tallmode{align-items:flex-start}
 /* a tall screen recording is capped so the whole phone stays in view */
 .pvstage video{max-height:min(58vh,640px);background:#06070A}
 .pvfoot{
@@ -1301,6 +1306,14 @@ body.pvlock{overflow:hidden}
       el=document.createElement('img'); el.src=f.src;
     }
     el.alt=f.alt||'';
+    stage.classList.remove('tallmode');
+    var fit=function(){
+      var tall = el.naturalHeight && (el.naturalHeight / el.naturalWidth) > 1.25;
+      el.classList.toggle('tall', !!tall);
+      stage.classList.toggle('tallmode', !!tall);
+      if(tall) stage.scrollTop = 0;
+    };
+    if(el.tagName==='IMG'){ el.complete ? fit() : el.addEventListener('load', fit, {once:true}); }
     stage.appendChild(el);
     cap.innerHTML=f.cap||'';
     var many=show.frames.length>1;
